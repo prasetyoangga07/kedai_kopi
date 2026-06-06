@@ -1,6 +1,9 @@
 ## Reminder
-run terminal :
-```npm run dev```
+- run terminal :
+``npm run dev``
+
+- ikon
+``npm install lucide``
 
 ### Dokumentasi
 <img width="1384" height="1291" alt="127 0 0 1_8000_login" src="https://github.com/user-attachments/assets/3388f364-b8c2-4711-9f0e-072625bfaead" /><img width="1384" height="1661" alt="127 0 0 1_8000_apriori" src="https://github.com/user-attachments/assets/7019c2f0-2b2b-4a58-b28e-193ec94ca312" />
