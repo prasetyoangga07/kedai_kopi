@@ -1,0 +1,17 @@
+LOAD DATA INFILE 'transaction_details.csv'
+INTO TABLE transaction_details
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(
+    @id,
+    transaction_id,
+    product_id,
+    qty,
+    subtotal,
+    created_at,
+    @updated_at
+)
+SET 
+    updated_at = NULLIF(@updated_at, 'NULL');

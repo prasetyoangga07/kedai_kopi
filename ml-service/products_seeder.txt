@@ -1,0 +1,18 @@
+LOAD DATA INFILE 'items.csv'
+INTO TABLE products
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(
+    sku,
+    item_name,
+    item_description,
+    item_cat,
+    item_size,
+    item_price,
+    item_stock,
+    created_at,
+    @updated_at
+)
+SET updated_at = NULLIF(@updated_at, 'NULL');

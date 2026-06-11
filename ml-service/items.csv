@@ -1,0 +1,25 @@
+sku,item_name,item_description,item_cat,item_size,item_price,item_stock,created_at,updated_at
+HDR-CAP-MD,Cappuccino,"Espresso shot dengan busa susu lembut khas Italia, creamy dan sedikit bold",Hot Drinks,Medium,3.45,50,2024-01-15 08:00:00,NULL
+HDR-CAP-LG,Cappuccino,"Espresso shot dengan busa susu lembut khas Italia, creamy dan sedikit bold",Hot Drinks,Large,3.75,45,2024-01-15 08:00:00,NULL
+HDR-LAT-MD,Latte,"Espresso dengan steamed milk yang silky smooth, mild dan sedikit manis",Hot Drinks,Medium,3.45,60,2024-01-15 08:00:00,NULL
+HDR-LAT-LG,Latte,"Espresso dengan steamed milk yang silky smooth, mild dan sedikit manis",Hot Drinks,Large,3.75,55,2024-01-15 08:00:00,NULL
+HDR-FLT,Flat White,"Double espresso dengan sedikit susu, rasa kopi lebih pekat dan bold",Hot Drinks,,3.15,40,2024-01-15 08:00:00,NULL
+HDR-CRM-MD,Caramel Macchiato,"Espresso dengan sirup karamel manis dan susu creamy, cocok buat yang suka manis",Hot Drinks,Medium,4.2,35,2024-01-15 08:00:00,NULL
+HDR-CRM-LG,Caramel Macchiato,"Espresso dengan sirup karamel manis dan susu creamy, cocok buat yang suka manis",Hot Drinks,Large,4.6,30,2024-01-15 08:00:00,NULL
+HDR-ESP,Espresso,"Single shot espresso murni, pekat dan kuat, untuk penikmat kopi sejati",Hot Drinks,,2.15,70,2024-01-15 08:00:00,NULL
+HDR-MOC-MD,Mocha,"Perpaduan espresso, cokelat, dan susu creamy yang kaya dan indulging",Hot Drinks,Medium,4.0,40,2024-01-15 08:00:00,NULL
+HDR-MOC-LG,Mocha,"Perpaduan espresso, cokelat, dan susu creamy yang kaya dan indulging",Hot Drinks,Large,4.6,35,2024-01-15 08:00:00,NULL
+HDR-WMO-MD,White Mocha,"Espresso dengan white chocolate dan susu steamed, manis lembut dan creamy",Hot Drinks,Medium,4.5,25,2024-01-15 08:00:00,NULL
+HDR-WMO-LG,White Mocha,"Espresso dengan white chocolate dan susu steamed, manis lembut dan creamy",Hot Drinks,Large,4.7,20,2024-01-15 08:00:00,NULL
+HDR-HCH-MD,Hot Chocolate,"Cokelat premium dengan susu panas, hangat dan kaya rasa, cocok untuk semua usia",Hot Drinks,Medium,4.2,30,2024-01-15 08:00:00,NULL
+HDR-HCH-LG,Hot Chocolate,"Cokelat premium dengan susu panas, hangat dan kaya rasa, cocok untuk semua usia",Hot Drinks,Large,4.6,28,2024-01-15 08:00:00,NULL
+CDR-CCF-MD,Cold Coffee,"Kopi dingin yang segar dan smooth, disajikan dengan es batu pilihan",Cold Drinks,Medium,3.45,50,2024-01-15 08:00:00,NULL
+CDR-CCF-LG,Cold Coffee,"Kopi dingin yang segar dan smooth, disajikan dengan es batu pilihan",Cold Drinks,Large,3.75,45,2024-01-15 08:00:00,NULL
+CDR-CMO-MD,Cold Mocha,"Mocha dingin yang kaya cokelat, espresso, dan susu dingin, segar dan indulging",Cold Drinks,Medium,4.0,40,2024-01-15 08:00:00,NULL
+CDR-CMO-LG,Cold Mocha,"Mocha dingin yang kaya cokelat, espresso, dan susu dingin, segar dan indulging",Cold Drinks,Large,4.6,38,2024-01-15 08:00:00,NULL
+CDR-ICT-MD,Iced Tea,"Teh segar disajikan dingin dengan es, ringan dan menyegarkan di segala suasana",Cold Drinks,Medium,3.25,55,2024-01-15 08:00:00,NULL
+CDR-ICT-LG,Iced Tea,"Teh segar disajikan dingin dengan es, ringan dan menyegarkan di segala suasana",Cold Drinks,Large,3.55,50,2024-01-15 08:00:00,NULL
+CDR-LMN-MD,Lemonade,"Lemon segar diperas langsung, manis asam dan menyegarkan, bebas pengawet",Cold Drinks,Medium,3.35,45,2024-01-15 08:00:00,NULL
+CDR-LMN-LG,Lemonade,"Lemon segar diperas langsung, manis asam dan menyegarkan, bebas pengawet",Cold Drinks,Large,3.75,40,2024-01-15 08:00:00,NULL
+SNK-SHC,Sandwich Ham&Cheese,"Roti panggang dengan ham juicy dan keju cheddar leleh, gurih dan mengenyangkan",Snacks,,5.6,20,2024-01-15 08:00:00,NULL
+SNK-SSM,Sandwich Salami&Mozzarella,"Roti panggang dengan salami Italia dan mozzarella segar, savory dan lezat",Snacks,,5.5,18,2024-01-15 08:00:00,NULL
