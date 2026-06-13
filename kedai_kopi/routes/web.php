@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -13,7 +13,11 @@ Route::view('/dashboard', 'dashboard.index');
 
 Route::view('/customers', 'customers.index');
 
-Route::view('/products', 'products.index');
+Route::prefix('/products')->name('products.')->controller(ProductController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::put('/{product}', 'update')->name('update');
+    Route::delete('/{product}', 'destroy')->name('destroy');
+});
 
 Route::view('/campaigns', 'campaigns.index');
 

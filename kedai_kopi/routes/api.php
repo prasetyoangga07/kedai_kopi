@@ -3,4 +3,4 @@
 use App\Http\Controllers\AprioriController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/apriori/generate', [AprioriController::class, 'generate']);
+Route::post('/apriori/generate', [AprioriController::class, 'generate'])->name('apriori.run');

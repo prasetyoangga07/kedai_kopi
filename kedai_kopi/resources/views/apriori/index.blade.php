@@ -19,13 +19,11 @@
 
 </div>
 
-<button
-class="bg-gradient-to-r from-[#6F4E37] to-[#A67B5B]
-text-white px-6 py-4 rounded-2xl shadow-xl">
-
-    Jalankan Analisis
-
-</button>
+<a href="{{ route('apriori.run') }}">
+    <button class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white px-6 py-4 rounded-2xl shadow-xl">
+        Jalankan Analisis
+    </button>
+</a>
 
 
 </div>
