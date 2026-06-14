@@ -20,8 +20,8 @@ return new class extends Migration
             $table->decimal('discount', total: 8, places: 2);
             $table->decimal('tax', total: 8, places: 2);
             $table->decimal('grand_total', total: 8, places: 2);
-            $table->boolean('payment_status');
             $table->enum('in_or_out', ['in', 'out'])->nullable();
+            $table->boolean('payment_status');
             $table->timestamps();
         });
     }
