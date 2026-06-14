@@ -39,7 +39,7 @@
     class="p-4">
 
     <div
-        class="bg-gradient-to-r from-[#A67B5B] to-[#6F4E37] rounded-2xl p-4 text-black">
+        class="bg-linear-to-r from-[#A67B5B] to-[#6F4E37] rounded-2xl p-4 text-black">
 
         <h3 class="font-bold text-white">
             Owner Dashboard
@@ -61,19 +61,7 @@
         {{ request()->is('dashboard') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
 
             <span class="shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2">
-                    <path stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M3 3v18h18" />
-                    <path stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M7 14l4-4 3 3 5-7" />
-                </svg>
+                <x-heroicon-o-chart-bar class="w-6 h-6"/>
             </span>
 
             <span
@@ -92,17 +80,7 @@
    class="flex items-center h-14 rounded-2xl transition-all duration-300
    {{ request()->is('customers') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
 
-    <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-6 h-6 shrink-0"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor">
-        <path stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M17 20h5V18a4 4 0 00-4-4h-1m-4 6H4v-2a4 4 0 014-4h5a4 4 0 014 4v2z"/>
-        <circle cx="9" cy="7" r="4" stroke-width="2"/>
-    </svg>
+    <x-heroicon-o-users class="w-6 h-6"/>
 
     <span x-show="sidebarOpen">Pelanggan</span>
 </a>
@@ -112,16 +90,7 @@
    class="flex items-center h-14 rounded-2xl transition-all duration-300
    {{ request()->is('products') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
 
-    <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-6 h-6 shrink-0"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor">
-        <path stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M18 8h1a3 3 0 010 6h-1M6 4h6a4 4 0 014 4v8a4 4 0 01-4 4H6a4 4 0 01-4-4V8a4 4 0 014-4z"/>
-    </svg>
+    <x-heroicon-o-inbox class="w-6 h-6"/>
 
     <span x-show="sidebarOpen">Produk</span>
 </a>
@@ -131,37 +100,17 @@
    class="flex items-center h-14 rounded-2xl transition-all duration-300
    {{ request()->is('campaigns') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
 
-    <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-6 h-6 shrink-0"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor">
-        <path stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 11l18-5v12l-18-5v-2z"/>
-    </svg>
+    <x-heroicon-o-megaphone class="w-6 h-6"/>
 
     <span x-show="sidebarOpen">Campaign</span>
 </a>
 
-<a href="/apriori"
+<a href={{ route('apriori.index') }}
    :class="sidebarOpen ? 'justify-start px-4 gap-3' : 'justify-center'"
    class="flex items-center h-14 rounded-2xl transition-all duration-300
    {{ request()->is('apriori') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
 
-    <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-6 h-6 shrink-0"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor">
-        <circle cx="6" cy="12" r="2"/>
-        <circle cx="18" cy="6" r="2"/>
-        <circle cx="18" cy="18" r="2"/>
-        <path stroke-width="2"
-              stroke-linecap="round"
-              d="M8 12h8M16 8l2 2M16 16l2-2"/>
-    </svg>
+   <x-heroicon-o-cube-transparent class="w-7 h-7"/>
 
     <span x-show="sidebarOpen">Apriori</span>
 </a>
@@ -171,16 +120,7 @@
    class="flex items-center h-14 rounded-2xl transition-all duration-300
    {{ request()->is('reports') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
 
-    <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-6 h-6 shrink-0"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor">
-        <path stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5l5 5v11a2 2 0 01-2 2z"/>
-    </svg>
+    <x-heroicon-o-clipboard-document-list class="w-7 h-7"/>
 
     <span x-show="sidebarOpen">Laporan</span>
 </a>

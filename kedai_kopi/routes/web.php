@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AprioriController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,6 @@ Route::prefix('/products')->name('products.')->controller(ProductController::cla
 
 Route::view('/campaigns', 'campaigns.index');
 
-Route::view('/apriori', 'apriori.index');
+Route::get('/apriori', [AprioriController::class, 'index'])->name('apriori.index');
 
 Route::view('/reports', 'reports.index');

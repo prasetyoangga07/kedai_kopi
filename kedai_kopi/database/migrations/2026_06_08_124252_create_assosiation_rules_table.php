@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('support', total: 8, places: 4);
             $table->decimal('confidence', total: 8, places: 4);
             $table->decimal('lift', total: 8, places: 4);
+            $table->decimal('leverage', places: 6);
             $table->boolean('is_active')->default(0);
             $table->timestamps();
         });

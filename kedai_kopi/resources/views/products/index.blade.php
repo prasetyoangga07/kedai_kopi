@@ -1,59 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div x-data="{
-        showEdit: {{ session('show_edit_modal') ? 'true' : 'false' }},
-        showDelete: false,
-        product: {},
-    
-        editProduct(product) {
-            this.product = product;
-            this.showEdit = true;
-        },
-
-        deleteProduct(product) {
-            this.product = product;
-            this.showDelete = true;
-        },
-    
-        addVariant() {
-            if (!this.product.variant) {
-                this.product.variant = [];
-            }
-            this.product.variant.push({
-                variant_name: '',
-                price: '',
-                is_active: false,
-            });
-        },
-    
-        generateSku(variant) {
-            const category = (this.product.category || '')
-                .toUpperCase()
-                .replace(/[AIUEO\s]/g, '')
-                .substring(0, 3);
-    
-            const product = (this.product.name || '')
-                .replace(/\s+/g, '-')
-                .toUpperCase()
-                .substring(0, 3);;
-    
-            const size =
-                variant.variant_name === 'Regular' ? '' :
-                (variant.variant_name || '')
-                .substring(0, 1)
-                .toUpperCase();
-    
-            return [category, product, size]
-                .filter(Boolean)
-                .join('-');
-        },
-    }">
+    <div x-data="productJs">
 
         <!-- HEADER -->
 
         <div class="flex justify-between items-center mb-8">
-
 
             <div>
 
@@ -78,55 +30,35 @@
         </div>
 
         <!-- KPI -->
-
         <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
 
             <!-- Total Produk -->
-
             <div class="bg-white rounded-[30px] p-6 shadow-xl border border-[#EFE3D5]">
-
                 <div class="flex justify-between items-start">
-
                     <div>
-
                         <p class="text-stone-500">
                             Total Produk
                         </p>
 
                         <h2 class="text-5xl font-black text-[#2B2118] mt-3">
-                            24
+                            {{ $totalProducts }}
                         </h2>
 
                         <p class="text-green-600 text-sm mt-3 font-semibold">
                             +4 produk bulan ini
                         </p>
-
                     </div>
 
                     <div class="w-14 h-14 rounded-2xl bg-[#FAF3E0] flex items-center justify-center">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#6F4E37]" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M20 13V7a2 2 0 00-1-1.73l-6-3.46a2 2 0 00-2 0L5 5.27A2 2 0 004 7v6a2 2 0 001 1.73l6 3.46a2 2 0 002 0l6-3.46A2 2 0 0020 13z" />
-
-                        </svg>
-
+                        <x-heroicon-o-inbox-stack class="h-7 w-7 text-[#6F4E37]" />
                     </div>
-
                 </div>
-
             </div>
 
             <!-- Produk Aktif -->
-
             <div class="bg-white rounded-[30px] p-6 shadow-xl border border-[#EFE3D5]">
-
                 <div class="flex justify-between items-start">
-
                     <div>
-
                         <p class="text-stone-500">
                             Produk Aktif
                         </p>
@@ -138,32 +70,18 @@
                         <p class="text-green-600 text-sm mt-3 font-semibold">
                             87% tersedia
                         </p>
-
                     </div>
 
                     <div class="w-14 h-14 rounded-2xl bg-[#FAF3E0] flex items-center justify-center">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#6F4E37]" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-
-                        </svg>
-
+                        <x-heroicon-o-check-circle class="h-7 w-7 text-[#6F4E37]" />
                     </div>
-
                 </div>
-
             </div>
 
             <!-- Best Seller -->
-
             <div class="bg-white rounded-[30px] p-6 shadow-xl border border-[#EFE3D5]">
-
                 <div class="flex justify-between items-start">
-
                     <div>
-
                         <p class="text-stone-500">
                             Best Seller
                         </p>
@@ -175,33 +93,18 @@
                         <p class="text-[#A67B5B] text-sm mt-3 font-semibold">
                             Top Performance
                         </p>
-
                     </div>
 
                     <div class="w-14 h-14 rounded-2xl bg-[#FAF3E0] flex items-center justify-center">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#6F4E37]" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.17c.969 0 1.371 1.24.588 1.81l-3.375 2.453a1 1 0 00-.364 1.118l1.287 3.966c.299.921-.755 1.688-1.538 1.118l-3.375-2.453a1 1 0 00-1.176 0l-3.375 2.453c-.783.57-1.837-.197-1.538-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.98 9.393c-.783-.57-.38-1.81.588-1.81h4.17a1 1 0 00.95-.69l1.361-3.966z" />
-
-                        </svg>
-
+                        <x-heroicon-o-star class="h-7 w-7 text-[#6F4E37]" />
                     </div>
-
                 </div>
-
             </div>
 
             <!-- Kategori -->
-
             <div class="bg-white rounded-[30px] p-6 shadow-xl border border-[#EFE3D5]">
-
                 <div class="flex justify-between items-start">
-
                     <div>
-
                         <p class="text-stone-500">
                             Kategori
                         </p>
@@ -213,21 +116,16 @@
                         <p class="text-[#A67B5B] text-sm mt-3 font-semibold">
                             Coffee & Dessert
                         </p>
-
                     </div>
 
                     <div class="w-14 h-14 rounded-2xl bg-[#FAF3E0] flex items-center justify-center">
                         <x-heroicon-o-tag class="h-7 w-7 text-[#6F4E37]" />
                     </div>
-
                 </div>
-
             </div>
-
         </div>
 
         <!-- SEARCH -->
-
         <div class="bg-white rounded-3xl shadow-xl p-6 mb-8">
 
 
@@ -238,7 +136,6 @@
         </div>
 
         <!-- PRODUCTS TABLE -->
-
         <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-[#EFE3D5]">
 
             <table class="w-full">
@@ -268,8 +165,7 @@
                                         title="Edit">
                                         <x-heroicon-o-pencil class="w-4 h-4" />
                                     </button>
-                                    <button
-                                        @click="deleteProduct(@js($product))"
+                                    <button @click="deleteProduct(@js($product))"
                                         class="px-3 py-2 bg-[#FFE8E8] text-red-600 rounded-lg text-xs font-semibold hover:bg-[#FFD0D0] transition cursor-pointer"
                                         title="Hapus">
                                         <x-heroicon-o-trash class="w-4 h-4" />
@@ -290,7 +186,6 @@
         </div>
 
         <!-- EDIT PRODUCT MODAL -->
-
         <div x-show="showEdit" x-transition.opacity style="display:none"
             class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
 
@@ -306,16 +201,15 @@
                     </div>
                     <button @click="showEdit=false" class="text-white hover:bg-white/20 rounded-lg p-1 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
                             </path>
                         </svg>
                     </button>
                 </div>
 
                 <!-- FORM -->
-                <form :action="`{{ url('/products') }}/${product.id}`" method="POST">
-                    @csrf
-                    @method('PUT')
+                <form @submit.prevent="submitEdit()">
 
                     <div class="p-6 space-y-4">
                         <!-- Nama Produk & Kategori -->
@@ -326,6 +220,7 @@
                                 </label>
                                 <input x-model="product.name" name="name"
                                     class="w-full px-3 py-2 border border-[#E6D7C8] rounded-lg focus:outline-none focus:border-[#6F4E37] focus:ring-1 focus:ring-[#6F4E37]/20 transition text-sm">
+                                <p class="text-red-500 text-xs mt-1" x-show="errors[`name`]" x-text="errors[`name`]"></p>
                             </div>
                             <div>
                                 <label class="text-xs uppercase tracking-wide text-stone-600 font-semibold block mb-1">
@@ -377,18 +272,30 @@
                                         </p>
                                         <!-- Fields Row -->
                                         <div class="grid grid-cols-12 gap-2 items-center">
-                                            <input x-model="variant.variant_name" :name="`variant[${index}][variant_name]`"
-                                                type="text" placeholder="Ukuran Produk"
-                                                class="col-span-5 px-2 py-2 text-sm border border-[#E6D7C8] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#6F4E37] bg-white">
-                                            <input x-model="variant.price" :name="`variant[${index}][price]`"
-                                                placeholder="Harga"
-                                                class="col-span-5 px-2 py-2 text-sm border border-[#E6D7C8] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#6F4E37] bg-white">
+                                            <div class="col-span-5">
+                                                <input x-model="variant.variant_name"
+                                                    :name="`variant[${index}][variant_name]`" type="text"
+                                                    placeholder="Ukuran Produk"
+                                                    class="w-full px-2 py-2 text-sm border border-[#E6D7C8] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#6F4E37] bg-white">
+                                                <p class="text-red-500 text-xs mt-1"
+                                                    x-show="errors[`variant.${index}.variant_name`]"
+                                                    x-text="errors[`variant.${index}.variant_name`]?.[0]"></p>
+                                            </div>
+                                            <div class="col-span-5">
+                                                <input x-model="variant.price" :name="`variant[${index}][price]`"
+                                                    placeholder="Harga"
+                                                    class="w-full px-2 py-2 text-sm border border-[#E6D7C8] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#6F4E37] bg-white">
+                                                <p class="text-red-500 text-xs mt-1"
+                                                    x-show="errors[`variant.${index}.price`]"
+                                                    x-text="errors[`variant.${index}.price`]?.[0]"></p>
+                                            </div>
                                             <div class="col-span-2 flex justify-center gap-5">
                                                 <label class="flex items-center justify-center">
-                                                    <input type="hidden" :name="`variant[${index}][is_active]`" value="0">
+                                                    <input type="hidden" :name="`variant[${index}][is_active]`"
+                                                        value="0">
                                                     <input x-model="variant.is_active"
-                                                        :name="`variant[${index}][is_active]`" type="checkbox" value="1"
-                                                        class="w-4 h-4 rounded cursor-pointer">
+                                                        :name="`variant[${index}][is_active]`" type="checkbox"
+                                                        value="1" class="w-4 h-4 rounded cursor-pointer">
                                                 </label>
                                                 <button x-show="!variant.id" type="button"
                                                     @click="product.variant.splice(index, 1)"
@@ -434,7 +341,6 @@
 
 
         <!-- DELETE PRODUCT MODAL -->
-
         <div x-show="showDelete" x-transition.opacity style="display:none"
             class="fixed inset-0 z-9999 bg-black/60 flex items-center justify-center p-6">
 
@@ -446,7 +352,7 @@
                 <div class="bg-linear-to-r from-red-500 to-red-600 p-8 text-white text-center">
 
                     <div class="w-24 h-24 p-5 mx-auto rounded-full bg-white/20 flex items-center justify-center">
-                        <x-heroicon-o-trash/>
+                        <x-heroicon-o-trash />
                     </div>
                     <h2 class="text-3xl font-black mt-5">
                         Hapus Produk
@@ -458,7 +364,7 @@
 
                 <div class="p-8 text-center">
 
-                    <h3 class="text-2xl font-bold text-[#2B2118] mt-6" x-text="selectedProduct?.name">
+                    <h3 class="text-2xl font-bold text-[#2B2118] mt-6" x-text="product.name">
                     </h3>
                     <p class="text-stone-500 mt-4 leading-relaxed">
                         Produk yang dihapus tidak dapat dikembalikan.

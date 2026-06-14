@@ -15,8 +15,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('variant')->get();
-        // dd($products->toArray());
-        return view('products.index', compact('products'));
+        $totalProducts = Product::all()->count();
+        return view('products.index', compact('products', 'totalProducts'));
     }
 
     /**
@@ -82,10 +82,10 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()
-            ->back()
-            ->withInput()
-            ->with('show_edit_modal', true);
+        return response()->json([
+            'success' => true,
+            'message' => 'Produk berhasil diperbarui'
+        ]);
     }
 
     /**
@@ -93,9 +93,14 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $data = Product::findOrFail($id);
-        $data->delete();
+        try {
+            $data = Product::findOrFail($id);
+            $data->delete();
 
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
+            return redirect()->back()->with('success', 'Data berhasil dihapus');
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 }
