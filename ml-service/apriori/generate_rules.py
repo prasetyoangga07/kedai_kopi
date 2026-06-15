@@ -6,9 +6,10 @@ from mlxtend.frequent_patterns import apriori, association_rules
 # mengambil data dari db dengan join
 df = pd.read_sql(
     """
-    SELECT td.transaction_id AS order_id, p.item_name
+    SELECT td.transaction_id AS order_id, p.name as item_name
     FROM transaction_details td
-    INNER JOIN products p ON td.product_id = p.id
+    INNER JOIN product_variants v ON td.variant_id = v.id
+    INNER JOIN products p ON v.product_id = p.id
     """,
     engine
 )
@@ -41,6 +42,7 @@ rules_db = rules[
         'support',
         'confidence',
         'lift',
+        'leverage'
     ]
 ]
 

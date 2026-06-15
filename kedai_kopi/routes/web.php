@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AprioriController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,4 +25,4 @@ Route::view('/campaigns', 'campaigns.index');
 
 Route::get('/apriori', [AprioriController::class, 'index'])->name('apriori.index');
 
-Route::view('/reports', 'reports.index');
+Route::get('/reports', [ReportController::class, 'index'])->name('report.index');

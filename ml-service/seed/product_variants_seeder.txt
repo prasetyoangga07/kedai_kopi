@@ -1,0 +1,16 @@
+LOAD DATA INFILE 'product_variants.csv'
+INTO TABLE product_variants
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(
+    product_id,
+    sku,
+    variant_name,
+    price,
+    is_active,
+    created_at,
+    @updated_at
+)
+SET updated_at = NULLIF(@updated_at, '');
