@@ -20,7 +20,7 @@
     </div>
 
     <!-- KPI -->
-    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
         <div class="bg-white rounded-[30px] p-6 shadow-xl border border-[#EFE3D5]">
             <div class="flex justify-between items-start">
                 <div>
@@ -33,6 +33,9 @@
                     </h2>
 
                     <p class="text-{{ $deviation < 0 ? 'red' : 'green' }}-600 text-sm mt-3 font-semibold">
+                        @if ($deviation > 0)
+                            +
+                        @endif
                         {{ $growth }}% bulan ini
                     </p>
                 </div>
@@ -46,39 +49,25 @@
         </div>
 
         <div class="bg-white rounded-[30px] p-6 shadow-xl border border-[#EFE3D5]">
-
             <div class="flex justify-between items-start">
-
                 <div>
-
                     <p class="text-stone-500">
                         Total Customer
                     </p>
 
                     <h2 class="text-5xl font-black text-[#2B2118] mt-3">
-                        1.248
+                        {{ $totalCust }}
                     </h2>
 
                     <p class="text-green-600 text-sm mt-3 font-semibold">
                         +64 customer baru
                     </p>
-
                 </div>
 
                 <div class="w-14 h-14 rounded-2xl bg-[#FAF3E0] flex items-center justify-center">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#6F4E37]" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 20h5V18a4 4 0 00-4-4h-1m-4 6H4v-2a4 4 0 014-4h5a4 4 0 014 4v2z" />
-
-                    </svg>
-
+                    <x-heroicon-o-users class="w-7 h-7" />
                 </div>
-
             </div>
-
         </div>
 
         <div class="bg-white rounded-[30px] p-6 shadow-xl border border-[#EFE3D5]">
@@ -102,44 +91,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="bg-white rounded-[30px] p-6 shadow-xl border border-[#EFE3D5]">
-
-            <div class="flex justify-between items-start">
-
-                <div>
-
-                    <p class="text-stone-500">
-                        Loyal Customer
-                    </p>
-
-                    <h2 class="text-5xl font-black text-[#2B2118] mt-3">
-                        342
-                    </h2>
-
-                    <p class="text-green-600 text-sm mt-3 font-semibold">
-                        +6% meningkat
-                    </p>
-
-                </div>
-
-                <div class="w-14 h-14 rounded-2xl bg-[#FAF3E0] flex items-center justify-center">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#6F4E37]" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5.121 17.804A8.969 8.969 0 0112 15c2.042 0 3.923.682 5.421 1.804" />
-
-                    </svg>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
     </div>
 
     <!-- HERO REPORT -->
@@ -175,6 +126,9 @@
                     </p>
 
                     <h3 class="text-2xl font-bold">
+                        @if ($deviation > 0)
+                            +
+                        @endif
                         {{ $growth }}%
                     </h3>
                 </div>
@@ -203,7 +157,7 @@
                     </p>
 
                     <h4 class="font-bold text-[#6F4E37]">
-                        {{ $currentMonthRevenue }}
+                        Rp{{ $currentMonthRevenue }}
                     </h4>
                 </div>
 
@@ -213,6 +167,9 @@
                     </p>
 
                     <h4 class="font-bold text-{{ $deviation < 0 ? 'red' : 'green' }}-600">
+                        @if ($deviation > 0)
+                            +
+                        @endif
                         {{ $growth }}%
                     </h4>
                 </div>
@@ -223,7 +180,7 @@
                     </p>
 
                     <h4 class="font-bold text-[#6F4E37]">
-                        {{ number_format($average, 2) }}
+                        Rp{{ number_format($average, 2) }}
                     </h4>
                 </div>
             </div>
@@ -291,10 +248,10 @@
         new Chart(revenueCtx, {
             type: 'line',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+                labels: @json($label),
                 datasets: [{
                     label: 'Revenue',
-                    data: [12, 19, 15, 25, 22, 28],
+                    data: @json($revenues),
                     borderColor: '#6F4E37',
                     backgroundColor: 'rgba(111,78,55,0.12)',
                     borderWidth: 4,

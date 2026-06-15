@@ -13,4 +13,4 @@ IGNORE 1 LINES
     @updated_at
 )
 SET 
-    updated_at = NULLIF(@updated_at, '');
+    updated_at = NULLIF(@updated_at, 'NULL');
