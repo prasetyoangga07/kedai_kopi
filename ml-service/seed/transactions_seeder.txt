@@ -5,17 +5,16 @@ OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (
-    @id,
     cust_name,
     subtotal,
     discount,
     tax,
     grand_total,
-    payment_status,
     @in_or_out,
+    payment_status,
     created_at,
     @updated_at
 )
 SET 
     in_or_out = NULLIF(TRIM(@in_or_out), ''),
-    updated_at = NULLIF(@updated_at, 'NULL');
+    updated_at = NULLIF(@updated_at, '');

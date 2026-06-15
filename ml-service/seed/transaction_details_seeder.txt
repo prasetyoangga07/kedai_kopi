@@ -5,13 +5,12 @@ OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (
-    @id,
     transaction_id,
-    product_id,
+    variant_id,
     qty,
-    subtotal,
+    unit_price,
     created_at,
     @updated_at
 )
 SET 
-    updated_at = NULLIF(@updated_at, 'NULL');
+    updated_at = NULLIF(@updated_at, '');

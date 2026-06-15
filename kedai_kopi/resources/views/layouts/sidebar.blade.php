@@ -115,7 +115,7 @@
     <span x-show="sidebarOpen">Apriori</span>
 </a>
 
-<a href="/reports"
+<a href="{{ route('report.index') }}"
    :class="sidebarOpen ? 'justify-start px-4 gap-3' : 'justify-center'"
    class="flex items-center h-14 rounded-2xl transition-all duration-300
    {{ request()->is('reports') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">

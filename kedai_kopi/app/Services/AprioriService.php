@@ -29,26 +29,13 @@ class AprioriService
         $rules = Apriori::all();
         $topConfidence = number_format($rules->max('confidence') * 100, 2);
 
-        // $totalProducts = $rules
-        //     ->flatMap(function ($rule) {
-        //         return array_merge(
-        //             $rule->antecedents,
-        //             $rule->consequents
-        //         );
-        //     })
-        //     ->unique()
-        //     ->count();
-
-        $products = collect();
-
-        foreach ($rules as $rule) {
-            $products = $products
-                ->merge($rule->antecedents)
-                ->merge($rule->consequents);
-        }
-
-        $totalProducts = $products
-            ->map(fn($item) => trim($item))
+        $totalProducts = $rules
+            ->flatMap(function ($rule) {
+                return array_merge(
+                    $rule->antecedents,
+                    $rule->consequents
+                );
+            })
             ->unique()
             ->count();
 
