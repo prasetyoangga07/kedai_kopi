@@ -1,0 +1,15 @@
+LOAD DATA INFILE 'customers.csv'
+INTO TABLE customers
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(
+    name,
+    phone,
+    points,
+    status,
+    created_at,
+    @updated_at
+)
+SET updated_at = NULLIF(@updated_at, 'NULL');
