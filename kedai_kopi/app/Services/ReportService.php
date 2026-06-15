@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Customer;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use Carbon\Carbon;
+use Illuminate\Support\Number;
 
 use function Laravel\Prompts\number;
 
@@ -12,29 +15,49 @@ class ReportService
     public function getData()
     {
         $transaction = Transaction::all();
+        $customer = Customer::all();
 
         $totalTransaction = $transaction->count();
-        $currentMonthRevenue = $this->getRevenue(now()->year, now()->month);
-        $previousMonthRevenue = $this->getRevenue(now()->year, now()->subMonth()->month);
+        $currentMonthRevenue = $this->getRevenue($this->getLast()->year, $this->getLast()->month);
+        $previousMonthRevenue = $this->getRevenue($this->getLast()->year, ($this->getLast()->month - 1));
         $deviation = $currentMonthRevenue - $previousMonthRevenue;
         $growth = number_format($deviation / $currentMonthRevenue, 2) * 100;
 
-        // dd($pastMonths);
+        $revenues = [];
+        foreach ($this->lastSix() as $month) {
+            $revenues[] = $this->getRevenue(
+                Carbon::parse($month)->format('Y'), 
+                Carbon::parse($month)->format('n')
+            );
+        }
 
         return [
             'totalTransaction' => $totalTransaction,
-            'currentMonthRevenue' => $currentMonthRevenue,
+            'currentMonthRevenue' => Number::abbreviate($currentMonthRevenue, precision: 1),
             'deviation' => $deviation,
             'growth' => $growth,
-            'average' => $this->monthlyAvg(now()->month),
-            'topMenu' => $this->topMenu(2024, 2),
+            'average' => $this->monthlyAvg($this->getLast()->month),
+            'topMenu' => $this->topMenu($this->getLast()->year, $this->getLast()->month),
+            'label' => $this->lastSix(),
+            'revenues' => $revenues,
+            'totalCust' => $customer->count(),
+        ];
+    }
+
+    public function getLast()
+    {
+        $latestTransaction = Transaction::latest('created_at')->first();
+
+        return (object) [
+            'month' => $latestTransaction->created_at->month,
+            'year' => $latestTransaction->created_at->year
         ];
     }
 
     public function getRevenue(
         ?int $year = null,
         ?int $month = null
-    ) {
+    ): int {
         $query = Transaction::query();
 
         if ($year) {
@@ -50,7 +73,7 @@ class ReportService
 
     public function monthlyAvg(int $month)
     {
-        return Transaction::whereYear('created_at', now()->year)
+        return Transaction::whereYear('created_at', $this->getLast()->year)
             ->whereMonth('created_at', $month)
             ->avg('grand_total');
     }
@@ -75,11 +98,10 @@ class ReportService
                 'products.id'
             )
             ->selectRaw(
-                'products.id,
-                products.name,
+                'products.name,
                 SUM(transaction_details.qty) as total_sold'
             )
-            ->groupBy('products.id', 'products.name')
+            ->groupBy('products.name')
             ->orderByDesc('total_sold');
 
         if ($year) {
@@ -94,7 +116,6 @@ class ReportService
 
         return $menus->take(5)->get()->map(function ($menu) use ($totalSold) {
             return (object) [
-                'id' => $menu->id,
                 'name' => $menu->name,
                 'total_sold' => $menu->total_sold,
                 'percentage' => round(
@@ -103,5 +124,23 @@ class ReportService
                 ),
             ];
         });
+    }
+
+    public function lastSix()
+    {
+        $lastYear = $this->getLast()->year;
+        $lastMonth = $this->getLast()->month;
+        $months = [];
+
+        for ($i = 5; $i >= 0; $i--) {
+            $months[] = Carbon::create(
+                $lastYear,
+                $lastMonth
+            )
+                ->subMonths($i)
+                ->translatedFormat('M Y');
+        }
+
+        return $months;
     }
 }
