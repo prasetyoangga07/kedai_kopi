@@ -55,7 +55,7 @@
 
 <nav class="flex-1 p-3 space-y-2">
 
-    <a href="/dashboard"
+    <a href="{{ route('dashboard.index') }}"
         :class="sidebarOpen ? 'justify-start px-4' : 'justify-center px-0'"
         class="flex items-center h-14 rounded-2xl transition-all duration-300
         {{ request()->is('dashboard') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
@@ -75,7 +75,7 @@
 
     </a>
 
-    <a href="/customers"
+    <a href="{{ route("customers.index") }}"
    :class="sidebarOpen ? 'justify-start px-4 gap-3' : 'justify-center'"
    class="flex items-center h-14 rounded-2xl transition-all duration-300
    {{ request()->is('customers') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">

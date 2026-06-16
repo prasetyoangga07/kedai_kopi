@@ -108,6 +108,9 @@
                 <h2 class="text-5xl font-black mt-6">
                     @foreach ($topRules->antecedents as $item)
                         {{ $item }}
+                        @if ($item > 1)
+                            ,
+                        @endif
                     @endforeach
                     ➜
                     @foreach ($topRules->consequents as $item)
@@ -119,6 +122,9 @@
                     Pelanggan yang membeli
                     @foreach ($topRules->antecedents as $item)
                         {{ $item }}
+                        @if ($item > 1)
+                            ,
+                        @endif
                     @endforeach
                     cenderung membeli
                     @foreach ($topRules->consequents as $item)
@@ -153,7 +159,7 @@
         <!-- RULE CARDS -->
         <div class="grid lg:grid-cols-2 gap-6 mb-8">
 
-            @foreach ($rules as $item)
+            @foreach ($rules->take(4) as $item)
                 <div class="bg-white rounded-[30px] shadow-xl p-6">
                     <div class="flex justify-between items-center">
                         <h3 class="font-bold text-xl text-[#2B2118]">

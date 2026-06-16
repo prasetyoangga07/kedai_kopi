@@ -8,8 +8,6 @@ use App\Models\TransactionDetail;
 use Carbon\Carbon;
 use Illuminate\Support\Number;
 
-use function Laravel\Prompts\number;
-
 class ReportService
 {
     public function getData()
@@ -21,7 +19,9 @@ class ReportService
         $currentMonthRevenue = $this->getRevenue($this->getLast()->year, $this->getLast()->month);
         $previousMonthRevenue = $this->getRevenue($this->getLast()->year, ($this->getLast()->month - 1));
         $deviation = $currentMonthRevenue - $previousMonthRevenue;
-        $growth = number_format($deviation / $currentMonthRevenue, 2) * 100;
+        $growth = number_format($deviation / $currentMonthRevenue * 100, 2);
+        $loyalCust = $customer->where('status', 'vip');
+        $topCust = $customer->sortByDesc('points')->take(5);
 
         $revenues = [];
         foreach ($this->lastSix() as $month) {
@@ -41,6 +41,8 @@ class ReportService
             'label' => $this->lastSix(),
             'revenues' => $revenues,
             'totalCust' => $customer->count(),
+            'totalLoyalCust' => $loyalCust->count(),
+            'topCust' => $topCust,
         ];
     }
 
