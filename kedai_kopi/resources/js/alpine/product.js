@@ -110,7 +110,6 @@ export default () => ({
             location.reload();
 
         } catch (errors) {
-            // console.log(errors);
             console.error(errors);
             alert('Terjadi kesalahan sistem');
         };

@@ -19,6 +19,11 @@ class AprioriController extends Controller
         return redirect()->back()->with('error', 'Apriori gagal dijalankan');
     }
 
+    public function generateApi()
+    {
+        return $this->apriori_service->generateRules();
+    }
+
     public function index()
     {
         $data = $this->apriori_service->getData();

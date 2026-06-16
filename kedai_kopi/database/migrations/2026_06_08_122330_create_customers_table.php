@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone');
+            $table->string('phone')->unique();
+            $table->string('email')->unique();
             $table->integer('points');
             $table->enum('status', ['regular', 'member', 'vip']);
             $table->timestamps();
