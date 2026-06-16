@@ -1,0 +1,23 @@
+LOAD DATA INFILE 'campaigns.csv'
+INTO TABLE campaigns
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(
+    @id,
+    name,
+    description,
+    status,
+    campaign_type,
+    discount_percentage,
+    target_revenue,
+    start_date,
+    end_date,
+    banner,
+    created_by,
+    created_at,
+    @updated_at
+)
+SET
+    updated_at = NULLIF(@updated_at, 'NULL');

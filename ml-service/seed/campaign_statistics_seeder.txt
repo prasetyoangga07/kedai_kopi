@@ -1,0 +1,18 @@
+LOAD DATA INFILE 'campaign_statistics.csv'
+INTO TABLE campaign_statistics
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(
+    @id,
+    campaign_id,
+    reach_count,
+    transaction_count,
+    revenue,
+    conversion_rate,
+    created_at,
+    @updated_at
+)
+SET
+    updated_at = NULLIF(@updated_at, 'NULL');
