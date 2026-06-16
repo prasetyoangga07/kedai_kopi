@@ -2,13 +2,18 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 import os
 
-load_dotenv("../kedai_kopi/.env")
+load_dotenv("../../kedai_kopi/.env")   
 
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 DB_DATABASE = os.getenv("DB_DATABASE")
 DB_USERNAME = os.getenv("DB_USERNAME")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
+
+print("HOST:", DB_HOST)
+print("PORT:", DB_PORT)
+print("DB:", DB_DATABASE)
+print("USER:", DB_USERNAME)
 
 engine = create_engine(
     f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}"

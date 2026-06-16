@@ -21,8 +21,20 @@ Route::prefix('/products')->name('products.')->controller(ProductController::cla
     Route::delete('/{product}', 'destroy')->name('destroy');
 });
 
-Route::view('/campaigns', 'campaigns.index');
+use App\Http\Controllers\CampaignController;
+
+Route::get('/campaigns', [CampaignController::class,'index'])
+    ->name('campaigns.index');
 
 Route::get('/apriori', [AprioriController::class, 'index'])->name('apriori.index');
 
 Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
+
+Route::post('/campaigns', [CampaignController::class, 'store'])
+    ->name('campaigns.store');
+
+Route::put('/campaigns/{campaign}', [CampaignController::class, 'update'])
+    ->name('campaigns.update');
+
+Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])
+    ->name('campaigns.destroy');
