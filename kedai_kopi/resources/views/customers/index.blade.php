@@ -1,31 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <div x-data="customerJs">
+<div x-data="customerJs()">
 
-        <!-- HEADER -->
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
-            <div>
-                <span
-                    class="inline-flex items-center px-4 py-2 rounded-full bg-[#FAF3E0] text-[#6F4E37] text-sm font-semibold">
-                    Customer Relationship Management
-                </span>
+    <!-- HEADER -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
+        <div>
+            <span
+                class="inline-flex items-center px-4 py-2 rounded-full bg-[#FAF3E0] text-[#6F4E37] text-sm font-semibold">
+                Customer Relationship Management
+            </span>
 
-                <h1 class="text-5xl font-bold text-[#2B2118] mt-4">
-                    Customer Intelligence
-                </h1>
+            <h1 class="text-5xl font-bold text-[#2B2118] mt-4">
+                Customer Intelligence
+            </h1>
 
-                <p class="text-[#8B6E54] mt-3 text-lg">
-                    Analisis loyalitas, aktivitas, dan segmentasi pelanggan KOPIN.
-                </p>
-            </div>
-
-            <button @click="createCust()"
-                class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white px-6 py-4 rounded-2xl shadow-xl hover:scale-105 transition-all cursor-pointer">
-                + Tambah Pelanggan
-            </button>
+            <p class="text-[#8B6E54] mt-3 text-lg">
+                Analisis loyalitas, aktivitas, dan segmentasi pelanggan KOPIN.
+            </p>
         </div>
 
+        <button @click="customerModal=true"
+            class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white px-6 py-4 rounded-2xl shadow-xl hover:scale-105 transition-all">
+            + Tambah Pelanggan
+        </button>
+    </div>
+
+    <!-- KPI -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
         <!-- KPI -->
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
 
@@ -101,43 +103,60 @@
 
         <!-- SEARCH -->
         <div class="bg-white rounded-3xl shadow-xl p-6 mb-8">
-            <div class="grid lg:grid-cols-3 gap-4">
-                <input x-model="search" type="text" placeholder="Cari nama pelanggan..."
-                    class="border border-[#E6D7C8] rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
-                <select x-model="filter" class="border border-[#E6D7C8] rounded-2xl px-5 py-4">
 
-                    <option value="all">
+            <form method="GET" class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+                <!-- Search -->
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Cari nama pelanggan..."
+                    class="lg:col-span-5 border border-[#E6D7C8] rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
+
+                <!-- Filter -->
+                <select
+                    name="filter"
+                    class="lg:col-span-2 border border-[#E6D7C8] rounded-2xl px-5 py-4">
+
+                    <option value="all" {{ request('filter')=='all' ? 'selected' : '' }}>
                         Semua Status
                     </option>
 
-                    <option value="VIP">
+                    <option value="vip" {{ request('filter')=='vip' ? 'selected' : '' }}>
                         VIP
                     </option>
 
-                    <option value="Member">
+                    <option value="member" {{ request('filter')=='member' ? 'selected' : '' }}>
                         Member
                     </option>
 
-                    <option value="Regular">
+                    <option value="regular" {{ request('filter')=='regular' ? 'selected' : '' }}>
                         Regular
                     </option>
 
                 </select>
 
-                <div class="bg-[#FAF3E0] rounded-2xl flex items-center justify-center font-semibold text-[#6F4E37]">
+                <!-- Button -->
+                <button
+                    type="submit"
+                    class="lg:col-span-2 rounded-2xl bg-[#8B5E3C] text-white font-semibold py-4 hover:bg-[#6F4E37] transition">
 
-                    Total Pelanggan:
-                    <span class="ml-2 text-xl">
-                        <span x-text="customers.length"></span>
-                    </span>
+                    Cari
+
+                </button>
+
+                <!-- Total -->
+                <div
+                    class="lg:col-span-3 bg-[#F5EFE8] rounded-2xl py-4 px-5 text-center font-semibold text-[#6F4E37]">
+
+                    Total Pelanggan: {{ $cust->count() }}
 
                 </div>
 
-            </div>
-
+            </form>
 
         </div>
-
         <!-- TABLE -->
         <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
             <div class="p-6 border-b border-stone-100">
@@ -159,76 +178,161 @@
                     </thead>
 
                     <tbody>
-                        @forelse ($cust as $item)
-                            <tr class="border-b hover:bg-[#FAF3E0]/40 transition">
-                                <td class="p-5">
-                                    <div class="flex items-center gap-4">
-                                        <div
-                                            class="w-12 h-12 rounded-full bg-[#6F4E37] text-white flex items-center justify-center font-bold">
-                                            {{ $item->initials }}
-                                        </div>
-
-                                        <div>
-                                            <h4 class="font-semibold">{{ $item->name }}</h4>
-                                            <p class="text-sm text-stone-500">{{ $item->email }}</p>
-                                        </div>
+                        @forelse ($cust as $cust)
+                        <tr class="border-b hover:bg-[#FAF3E0]/40 transition">
+                            <td class="p-5">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white flex items-center justify-center font-bold">
+                                        <span x-text="customer.avatar"></span>
                                     </div>
-                                </td>
 
-                                <td class="p-5">{{ $item->phone }}</td>
-
-                                <td class="p-5 font-bold text-[#6F4E37]">{{ $item->points }}</td>
-
-                                <td class="p-5">
-                                    <span
-                                        class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                                        {{ $item->status }}
-                                    </span>
-                                </td>
-
-                                <td class="p-5">
-                                    <div class="flex gap-2">
-                                        <button @click="editCust(@js($item))"
-                                            class="px-3 py-2 bg-[#E8F0F7] text-[#2B5A7D] rounded-lg text-xs font-semibold hover:bg-[#D0E4F2] transition cursor-pointer"
-                                            title="Edit">
-                                            <x-heroicon-o-pencil class="w-4 h-4" />
-                                        </button>
-
-                                        <button @click="deleteCust(@js($item))"
-                                            class="px-3 py-2 bg-[#FFE8E8] text-red-600 rounded-lg text-xs font-semibold hover:bg-[#FFD0D0] transition cursor-pointer"
-                                            title="Hapus">
-                                            <x-heroicon-o-trash class="w-4 h-4" />
-                                        </button>
+                                    <div>
+                                        <h4 class="font-semibold">{{ $cust->name }}</h4>
+                                        <p class="text-sm text-stone-500">{{ $cust->email }}</p>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+
+                            <td class="p-5">{{ $cust->phone }}</td>
+
+                            <td class="p-5 font-bold text-[#6F4E37]">{{ $cust->points }}</td>
+
+                            <td class="p-5">
+                                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                                    {{ $cust->status }}
+                                </span>
+                            </td>
+
+                            <td class="p-5">
+                                <div class="flex gap-2">
+                                    <button @click="editCust(@js($cust))"
+                                        class="px-3 py-2 bg-[#E8F0F7] text-[#2B5A7D] rounded-lg text-xs font-semibold hover:bg-[#D0E4F2] transition cursor-pointer"
+                                        title="Edit">
+                                        <x-heroicon-o-pencil class="w-4 h-4" />
+                                    </button>
+
+                                    <button @click="deleteCust(@js($cust))"
+                                        class="px-3 py-2 bg-[#FFE8E8] text-red-600 rounded-lg text-xs font-semibold hover:bg-[#FFD0D0] transition cursor-pointer"
+                                        title="Hapus">
+                                        <x-heroicon-o-trash class="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
                         @empty
-                            data pelanggan masih kosong
+                        data pelanggan masih kosong
                         @endforelse
                     </tbody>
                 </table>
-                {{ $cust->links('vendor.pagination.custom') }}    
             </div>
         </div>
 
-        <!-- MODAL -->
-        <div x-show="showModal" x-transition class="fixed inset-0 z-9999 flex items-center justify-center p-4">
-            <div @click="showModal=false" class="absolute inset-0 bg-black/50"></div>
+        <!-- MODAL TAMBAH CUSTOMER -->
+        <div x-show="customerModal" x-transition class="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+            <div @click="customerModal=false" class="absolute inset-0 bg-black/50"></div>
+
+            <div class="relative bg-white w-full max-w-2xl rounded-[32px] shadow-2xl p-8">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-[#2B2118]">
+                            Tambah Pelanggan
+                        </h2>
+
+                        <p class="text-stone-500">
+                            Tambahkan pelanggan baru
+                        </p>
+                    </div>
+
+                    <button @click="customerModal=false" class="text-3xl">
+                        ×
+                    </button>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-5">
+
+                    <input x-model="newCustomer.name" class="border rounded-2xl p-4" placeholder="Nama Lengkap">
+
+                    <input x-model="newCustomer.email" class="border rounded-2xl p-4" placeholder="Email">
+
+                    <input x-model="newCustomer.phone" class="border rounded-2xl p-4" placeholder="Telepon">
+
+                    <select x-model="newCustomer.status" class="border rounded-2xl p-4">
+
+                        <option>VIP</option>
+                        <option>Member</option>
+                        <option>Regular</option>
+
+                    </select>
+
+                    <input type="number" x-model="newCustomer.points" class="border rounded-2xl p-4"
+                        placeholder="Poin">
+
+                </div>
+
+                <div class="flex gap-3 mt-8">
+                    <button @click="customerModal=false" class="flex-1 p-4 rounded-2xl bg-stone-100">
+                        Batal
+                    </button>
+
+                    <button
+                        @click="
+
+customers.push({
+
+id: Date.now(),
+
+name:newCustomer.name,
+
+email:newCustomer.email,
+
+phone:newCustomer.phone,
+
+status:newCustomer.status,
+
+points:newCustomer.points,
+
+avatar:newCustomer.name
+    ? newCustomer.name.charAt(0).toUpperCase()
+    : 'N'
+
+});
+
+customerModal=false;
+
+newCustomer={
+name:'',
+email:'',
+phone:'',
+status:'Member',
+points:0,
+avatar:'N'
+};
+
+"
+                        class="flex-1 p-4 rounded-2xl bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white font-bold">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL EDIT -->
+        <div x-show="showEdit" x-transition class="fixed inset-0 z-9999 flex items-center justify-center p-4">
+            <div @click="showEdit=false" class="absolute inset-0 bg-black/50"></div>
 
             <div class="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden">
                 <!-- Header -->
                 <div class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] px-6 py-5 flex justify-between items-center">
                     <div>
-                        <h2 x-show="mode === 'create'" class="text-2xl font-bold text-white">Tambah Pelanggan</h2>
-                        <h2 x-show="mode === 'edit'" class="text-2xl font-bold text-white">Edit Pelanggan</h2>
-                        <p x-show="mode === 'create'" class="text-amber-100 text-xs">Tambah data pelanggan</p>
-                        <p x-show="mode === 'edit'" class="text-amber-100 text-xs">Perbarui data pelanggan</p>
+                        <h2 class="text-2xl font-bold text-white">Edit Pelanggan</h2>
+                        <p class="text-amber-100 text-xs">Perbarui data pelanggan</p>
                     </div>
-                    <button @click="showModal=false" class="text-white text-2xl hover:opacity-75 cursor-pointer">×</button>
+                    <button @click="showEdit=false" class="text-white text-2xl hover:opacity-75 cursor-pointer">×</button>
                 </div>
 
                 <!-- Form -->
-                <form @submit.prevent="submit()">
+                <form @submit.prevent="submitEdit()">
                     <div class="p-6 space-y-3">
                         <!-- Nama & Email -->
                         <div class="grid grid-cols-2 gap-3">
@@ -236,14 +340,11 @@
                                 <label class="text-xs font-bold text-[#2B2118] block mb-1">Nama</label>
                                 <input x-model="customer.name" type="text" placeholder="Nama lengkap" name="name"
                                     class="w-full border border-[#E6D7C8] rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#A67B5B] transition">
-                                <p class="text-red-500 text-xs mt-1" x-show="errors[`name`]" x-text="errors[`name`]"></p>
                             </div>
                             <div>
                                 <label class="text-xs font-bold text-[#2B2118] block mb-1">Email</label>
-                                <input x-model="customer.email" type="email" placeholder="email@domain.com"
-                                    name="email"
+                                <input x-model="customer.email" type="email" placeholder="email@domain.com" name="email"
                                     class="w-full border border-[#E6D7C8] rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#A67B5B] transition">
-                                <p class="text-red-500 text-xs mt-1" x-show="errors[`email`]" x-text="errors[`email`]"></p>
                             </div>
                         </div>
 
@@ -253,13 +354,11 @@
                                 <label class="text-xs font-bold text-[#2B2118] block mb-1">Telepon</label>
                                 <input x-model="customer.phone" type="text" placeholder="08xxxxxxxxxx" name="phone"
                                     class="w-full border border-[#E6D7C8] rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#A67B5B] transition">
-                                <p class="text-red-500 text-xs mt-1" x-show="errors[`phone`]" x-text="errors[`phone`]"></p>
                             </div>
                             <div>
                                 <label class="text-xs font-bold text-[#2B2118] block mb-1">Poin</label>
                                 <input x-model="customer.points" type="number" placeholder="0" name="points"
                                     class="w-full border border-[#E6D7C8] rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#A67B5B] transition">
-                                <p class="text-red-500 text-xs mt-1" x-show="errors[`points`]" x-text="errors[`points`]"></p>
                             </div>
                         </div>
 
@@ -268,22 +367,19 @@
                             <label class="text-xs font-bold text-[#2B2118] block mb-1">Status</label>
                             <select x-model="customer.status" name="status"
                                 class="w-full border border-[#E6D7C8] rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#A67B5B] transition bg-white">
-                                <option value="vip" @selected('customer.status' == 'vip')> VIP</option>
-                                <option value="member" @selected('customer.status' == 'member')> Member</option>
-                                <option value="regular" @selected('customer.status' == 'regular')> Regular</option>
+                                <option value="vip" @selected('customer.status'=='vip' )> VIP</option>
+                                <option value="member" @selected('customer.status'=='member' )> Member</option>
+                                <option value="regular" @selected('customer.status'=='regular' )> Regular</option>
                             </select>
-                            <p class="text-red-500 text-xs mt-1" x-show="errors[`status`]" x-text="errors[`status`]"></p>
                         </div>
                     </div>
 
                     <!-- Footer -->
                     <div class="flex gap-3 px-6 py-4 bg-stone-50 border-t border-stone-100">
-                        <button @click="showModal=false"
-                            class="flex-1 px-4 py-2.5 rounded-xl bg-white text-[#2B2118] font-semibold text-sm border border-[#E6D7C8] hover:bg-stone-100 transition cursor-pointer">
+                        <button @click="showEdit=false" class="flex-1 px-4 py-2.5 rounded-xl bg-white text-[#2B2118] font-semibold text-sm border border-[#E6D7C8] hover:bg-stone-100 transition cursor-pointer">
                             Batal
                         </button>
-                        <button type="submit"
-                            class="flex-1 px-4 py-2.5 rounded-xl bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white font-semibold text-sm hover:shadow-lg transition cursor-pointer">
+                        <button type="submit" class="flex-1 px-4 py-2.5 rounded-xl bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white font-semibold text-sm hover:shadow-lg transition cursor-pointer">
                             Simpan
                         </button>
                     </div>
@@ -296,8 +392,7 @@
             <div @click="showDelete=false" class="absolute inset-0 bg-black/50"></div>
 
             <div class="relative bg-white w-full max-w-lg rounded-4xl shadow-2xl p-8 text-center">
-                <div
-                    class="w-20 h-20 p-3 mx-auto rounded-3xl bg-red-50 text-red-600 flex items-center justify-center mb-6">
+                <div class="w-20 h-20 p-3 mx-auto rounded-3xl bg-red-50 text-red-600 flex items-center justify-center mb-6">
                     <x-heroicon-o-trash />
                 </div>
 
@@ -312,8 +407,7 @@
                 </p>
 
                 <div class="flex gap-3 mt-8">
-                    <button @click="showDelete=false"
-                        class="flex-1 p-4 rounded-2xl bg-stone-100 hover:bg-stone-200 cursor-pointer">
+                    <button @click="showDelete=false" class="flex-1 p-4 rounded-2xl bg-stone-100 hover:bg-stone-200 cursor-pointer">
                         Batal
                     </button>
 
@@ -329,4 +423,4 @@
             </div>
         </div>
     </div>
-@endsection
+    @endsection

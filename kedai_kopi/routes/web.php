@@ -6,15 +6,38 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Models\Product;
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\CustomerDashboardController;
+
 
 Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::view('/login', 'auth.login')->name('login');
+// LOGIN 
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login.process');
+
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
+// DASHBOARD 
+Route::middleware('auth')->group(function () {
+
+    Route::get(
+        '/dashboard',
+        [DashboardController::class, 'index']
+    )->name('dashboard.index');
+});
+
+// CUSTOMER 
 Route::prefix('/customers')->name('customers.')->controller(CustomerController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
@@ -22,6 +45,8 @@ Route::prefix('/customers')->name('customers.')->controller(CustomerController::
     Route::delete('/{customer}', 'destroy')->name('destroy');
 });
 
+
+// Product 
 Route::prefix('/products')->name('products.')->controller(ProductController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
@@ -29,9 +54,11 @@ Route::prefix('/products')->name('products.')->controller(ProductController::cla
     Route::delete('/{product}', 'destroy')->name('destroy');
 });
 
-use App\Http\Controllers\CampaignController;
 
-Route::get('/campaigns', [CampaignController::class,'index'])
+
+
+// CAMPAGN 
+Route::get('/campaigns', [CampaignController::class, 'index'])
     ->name('campaigns.index');
 
 Route::prefix('/apriori')->name('apriori.')->controller(AprioriController::class)->group(function () {
@@ -49,3 +76,11 @@ Route::put('/campaigns/{campaign}', [CampaignController::class, 'update'])
 
 Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])
     ->name('campaigns.destroy');
+
+
+
+// CUSTOMER DASHBOARD
+Route::get(
+    '/customer/dashboard',
+    [CustomerDashboardController::class, 'index']
+)->name('customer.dashboard');    

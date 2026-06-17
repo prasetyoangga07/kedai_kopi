@@ -11,7 +11,7 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $cust = Customer::query()
             ->when(
@@ -104,12 +104,17 @@ class CustomerController extends Controller
     public function destroy(int $id)
     {
         try {
+
             $data = Customer::findOrFail($id);
             $data->delete();
 
             return redirect()->back()->with('success', 'Data berhasil diperbarui');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 }

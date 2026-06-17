@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export default () => ({
     showModal: false,
     showDelete: false,
@@ -18,7 +20,7 @@ export default () => ({
     },
 
     deleteCust(cust) {
-        this.customer = cust;
+        this.customer = { ...cust };
         this.showDelete = true;
     },
 
@@ -55,8 +57,11 @@ export default () => ({
             if (!response.ok) {
                 this.errors = result.errors ?? {};
 
-                console.log('Validation error');
-                console.log(this.errors);
+                Swal.fire({
+                    icon: "error",
+                    title: "Validasi Gagal",
+                    text: "Periksa kembali data yang diinput",
+                });
 
                 return;
             }
