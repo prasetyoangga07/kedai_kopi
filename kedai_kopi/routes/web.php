@@ -10,9 +10,10 @@ use App\Http\Controllers\AuthController;
 use App\Models\Product;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CustomerDashboardController;
+use App\Http\Controllers\LandingController;
 
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return redirect('/login');
 });
 
@@ -83,4 +84,14 @@ Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])
 Route::get(
     '/customer/dashboard',
     [CustomerDashboardController::class, 'index']
-)->name('customer.dashboard');    
+)->name('customer.dashboard');
+
+//  LANDING PAGE VISIT
+Route::get('/', [LandingController::class, 'index'])
+    ->name('landing');
+
+Route::get('/promo', [CampaignController::class, 'landing'])
+    ->name('promo.index');
+
+Route::get('/promo/{campaign}', [CampaignController::class, 'showLanding'])
+    ->name('promo.show');

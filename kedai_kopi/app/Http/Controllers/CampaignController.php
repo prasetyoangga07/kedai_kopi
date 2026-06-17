@@ -97,4 +97,19 @@ class CampaignController extends Controller
         return redirect()->back()
             ->with('success', 'Campaign berhasil dihapus');
     }
+
+    public function landing()
+    {
+        $campaigns = Campaign::latest()->get();
+
+        return view('promo.index', compact('campaigns'));
+    }
+
+    public function showLanding(Campaign $campaign)
+    {
+        return view(
+            'promo.show',
+            compact('campaign')
+        );
+    }
 }
