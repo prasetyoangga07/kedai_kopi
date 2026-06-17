@@ -114,19 +114,33 @@ export default () => ({
             if (!response.ok) {
                 this.errors = result.errors ?? {};
 
-                console.log('Validation Error');
-                console.log(this.errors);
+                Swal.fire({
+                    icon: "error",
+                    title: "Validasi Gagal",
+                    text: result.message,
+                });
 
                 return;
             }
 
-            alert(result.message);
             this.showEdit = false;
+
+            await Swal.fire({
+                icon: "success",
+                title: "Berhasil",
+                text: result.message,
+            });
+
             location.reload();
 
         } catch (errors) {
+            Swal.fire({
+                icon: "error",
+                title: "Validasi Gagal",
+                text: "Sistem tidak tersedia saat ini",
+            })
+
             console.error(errors);
-            alert('Terjadi kesalahan sistem');
         };
     }
 })

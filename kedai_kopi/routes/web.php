@@ -7,7 +7,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Models\Product;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\LandingController;
@@ -17,54 +16,60 @@ Route::get('/login', function () {
     return redirect('/login');
 });
 
-// LOGIN 
+// =================================
+// AUTHENTICATION ROUTES
+// =================================
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// Login
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 
-Route::post('/login', [AuthController::class, 'login'])
-    ->name('login.process');
+// Register
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.process');
 
+// Logout
 Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth')
     ->name('logout');
 
-// DASHBOARD 
-Route::middleware('auth')->group(function () {
+// =================================
+// ADMIN & BARISTA ROUTES
+// =================================
 
-    Route::get(
-        '/dashboard',
-        [DashboardController::class, 'index']
-    )->name('dashboard.index');
-});
+Route::middleware(['auth', 'role:admin,barista'])->group(function () {
+    // DASHBOARD
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-// CUSTOMER 
-Route::prefix('/customers')->name('customers.')->controller(CustomerController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::post('/', 'store')->name('store');
-    Route::put('/{customer}', 'update')->name('update');
-    Route::delete('/{customer}', 'destroy')->name('destroy');
-});
+    // CUSTOMER 
+    Route::prefix('/customers')->name('customers.')->controller(CustomerController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{customer}', 'update')->name('update');
+        Route::delete('/{customer}', 'destroy')->name('destroy');
+    });
 
+    // PRODUCT
+    Route::prefix('/products')->name('products.')->controller(ProductController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{product}', 'update')->name('update');
+        Route::delete('/{product}', 'destroy')->name('destroy');
+    });
 
-// Product 
-Route::prefix('/products')->name('products.')->controller(ProductController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::post('/', 'store')->name('store');
-    Route::put('/{product}', 'update')->name('update');
-    Route::delete('/{product}', 'destroy')->name('destroy');
-});
+    // CAMPAIGN (Admin only)
+    Route::middleware('role:admin')->prefix('/campaigns')->name('campaigns.')->controller(CampaignController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{campaign}', 'update')->name('update');
+        Route::delete('/{campaign}', 'destroy')->name('destroy');
+    });
 
-
-
-
-// CAMPAGN 
-Route::get('/campaigns', [CampaignController::class, 'index'])
-    ->name('campaigns.index');
-
-Route::prefix('/apriori')->name('apriori.')->controller(AprioriController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::post('/generate', 'generate')->name('run');
+    // APRIORI (Admin only)
+    Route::middleware('role:admin')->prefix('/apriori')->name('apriori.')->controller(AprioriController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/generate', 'generate')->name('run');
+    });
 });
 
 Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
@@ -78,13 +83,8 @@ Route::put('/campaigns/{campaign}', [CampaignController::class, 'update'])
 Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])
     ->name('campaigns.destroy');
 
-
-
 // CUSTOMER DASHBOARD
-Route::get(
-    '/customer/dashboard',
-    [CustomerDashboardController::class, 'index']
-)->name('customer.dashboard');
+Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
 
 //  LANDING PAGE VISIT
 Route::get('/', [LandingController::class, 'index'])

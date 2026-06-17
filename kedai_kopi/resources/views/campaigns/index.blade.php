@@ -12,7 +12,7 @@
     x-transition:leave="transition ease-in duration-300"
     x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0"
-    class="fixed top-5 right-5 z-[99999]">
+    class="fixed top-5 right-5 z-99999">
 
     <div
         class="bg-green-500 text-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3">
@@ -115,7 +115,7 @@
         <button
             @click="campaignModal=true"
             class="group
-        bg-gradient-to-r
+        bg-linear-to-r
         from-[#6F4E37]
         to-[#A67B5B]
         text-white
@@ -137,7 +137,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
 
-        <div class="bg-white rounded-[32px] p-6 shadow-xl border border-[#E8D8C4]">
+        <div class="bg-white rounded-4xl p-6 shadow-xl border border-[#E8D8C4]">
 
             <div class="flex justify-between items-center">
 
@@ -157,7 +157,7 @@
 
                 </div>
 
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FAF3E0] to-[#F2E6D3] flex items-center justify-center shadow-inner">
+                <div class="w-16 h-16 rounded-2xl bg-linear-to-br from-[#FAF3E0] to-[#F2E6D3] flex items-center justify-center shadow-inner">
 
                     <x-heroicon-o-megaphone
                         class="w-8 h-8 text-[#6F4E37]" />
@@ -168,7 +168,7 @@
 
         </div>
 
-        <div class="bg-white rounded-[32px] p-6 shadow-xl border border-[#E8D8C4]">
+        <div class="bg-white rounded-4xl p-6 shadow-xl border border-[#E8D8C4]">
 
             <div class="flex justify-between items-center">
 
@@ -188,7 +188,7 @@
 
                 </div>
 
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FAF3E0] to-[#F2E6D3] flex items-center justify-center shadow-inner">
+                <div class="w-16 h-16 rounded-2xl bg-linear-to-br from-[#FAF3E0] to-[#F2E6D3] flex items-center justify-center shadow-inner">
 
                     <x-heroicon-o-banknotes
                         class="w-8 h-8 text-[#6F4E37]" />
@@ -199,7 +199,7 @@
 
         </div>
 
-        <div class="bg-white rounded-[32px] p-6 shadow-xl border border-[#E8D8C4]">
+        <div class="bg-white rounded-4xl p-6 shadow-xl border border-[#E8D8C4]">
 
             <div class="flex justify-between items-center">
 
@@ -219,7 +219,7 @@
 
                 </div>
 
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FAF3E0] to-[#F2E6D3] flex items-center justify-center shadow-inner">
+                <div class="w-16 h-16 rounded-2xl bg-linear-to-br from-[#FAF3E0] to-[#F2E6D3] flex items-center justify-center shadow-inner">
 
                     <x-heroicon-o-cube
                         class="w-8 h-8 text-[#6F4E37]" />
@@ -230,7 +230,7 @@
 
         </div>
 
-        <div class="bg-white rounded-[32px] p-6 shadow-xl border border-[#E8D8C4]">
+        <div class="bg-white rounded-4xl p-6 shadow-xl border border-[#E8D8C4]">
 
             <div class="flex justify-between items-center">
 
@@ -250,7 +250,7 @@
 
                 </div>
 
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FAF3E0] to-[#F2E6D3] flex items-center justify-center shadow-inner">
+                <div class="w-16 h-16 rounded-2xl bg-linear-to-br from-[#FAF3E0] to-[#F2E6D3] flex items-center justify-center shadow-inner">
 
                     <x-heroicon-o-chart-bar
                         class="w-8 h-8 text-[#6F4E37]" />
@@ -583,7 +583,7 @@
     rounded-2xl
     border
     border-[#EFE3D5]
-    bg-gradient-to-r
+    bg-linear-to-r
     from-[#FAF3E0]
     to-white
     px-4 py-3">
@@ -722,7 +722,7 @@
         x-show="campaignModal"
         x-transition.opacity
         style="display:none"
-        class="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6">
+        class="fixed inset-0 z-9999 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6">
 
 
         <div
@@ -739,7 +739,7 @@
                 <!-- HEADER -->
 
                 <div
-                    class="bg-gradient-to-r from-[#6F4E37] to-[#A67B5B] p-8 text-white">
+                    class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] p-8 text-white">
 
                     <span
                         class="inline-flex items-center px-4 py-2 rounded-full bg-white/15 text-sm font-medium">
@@ -916,7 +916,7 @@
                             <!-- PREVIEW -->
 
                             <div
-                                class="bg-gradient-to-r
+                                class="bg-linear-to-r
                             from-[#FAF3E0]
                             to-[#F8F3ED]
                             border border-[#EFE3D5]
@@ -1058,14 +1058,14 @@
         x-show="campaignDetail"
         x-transition.opacity
         style="display:none"
-        class="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6">
+        class="fixed inset-0 z-9999 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6">
 
         <div
             @click.away="campaignDetail=false"
             class="bg-white w-full max-w-3xl rounded-[36px] overflow-hidden shadow-2xl">
 
             <div
-                class="bg-gradient-to-r from-[#6F4E37] via-[#8B5E3C] to-[#A67B5B] p-8 text-white">
+                class="bg-linear-to-r from-[#6F4E37] via-[#8B5E3C] to-[#A67B5B] p-8 text-white">
 
                 <div class="flex justify-between items-start">
 
@@ -1354,14 +1354,14 @@
                 x-show="campaignEdit && selectedCampaign"
                 x-transition.opacity
                 style="display:none"
-                class="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6">
+                class="fixed inset-0 z-9999 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6">
 
                 <div
                     @click.away="campaignEdit=false"
                     class="bg-white w-full max-w-4xl rounded-[36px] overflow-hidden shadow-2xl">
 
                     <div
-                        class="bg-gradient-to-r from-[#6F4E37] to-[#A67B5B] p-8 text-white">
+                        class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] p-8 text-white">
 
                         <h2 class="text-3xl font-bold">
                             Edit Campaign
@@ -1514,15 +1514,15 @@
         x-show="campaignDelete"
         x-transition.opacity
         style="display:none"
-        class="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6">
+        class="fixed inset-0 z-9999 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6">
 
         <div
             @click.away="campaignDelete=false"
             class="bg-white w-full max-w-md rounded-[36px] p-8 text-center shadow-2xl">
 
             <div
-                class="w-20 h-20 rounded-[24px]
-            bg-gradient-to-br
+                class="w-20 h-20 rounded-3xl
+            bg-linear-to-br
             from-red-50
             to-red-100
             mx-auto
