@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CustomerDashboardController;
+use App\Http\Controllers\LandingController;
 
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return redirect('/login');
 });
 
@@ -69,15 +70,28 @@ Route::middleware(['auth', 'role:admin,barista'])->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/generate', 'generate')->name('run');
     });
-
-    // REPORT (Admin only)
-    Route::middleware('role:admin')->get('/reports', [ReportController::class, 'index'])->name('report.index');
 });
 
-// =================================
-// CUSTOMER ROUTES
-// =================================
+Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
 
-Route::middleware(['auth', 'role:user'])->get('/customer/dashboard', [CustomerDashboardController::class, 'index'])
-    ->name('customer.dashboard');
+Route::post('/campaigns', [CampaignController::class, 'store'])
+    ->name('campaigns.store');
 
+Route::put('/campaigns/{campaign}', [CampaignController::class, 'update'])
+    ->name('campaigns.update');
+
+Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])
+    ->name('campaigns.destroy');
+
+// CUSTOMER DASHBOARD
+Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
+
+//  LANDING PAGE VISIT
+Route::get('/', [LandingController::class, 'index'])
+    ->name('landing');
+
+Route::get('/promo', [CampaignController::class, 'landing'])
+    ->name('promo.index');
+
+Route::get('/promo/{campaign}', [CampaignController::class, 'showLanding'])
+    ->name('promo.show');
