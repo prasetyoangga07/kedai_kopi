@@ -34,7 +34,7 @@ export default () => ({
         if (isEdit) {
             formData.append('_method', 'PUT');
         }
-        
+
         formData.append('name', this.customer.name);
         formData.append('email', this.customer.email);
         formData.append('phone', this.customer.phone);
@@ -66,12 +66,23 @@ export default () => ({
                 return;
             }
 
-            alert(result.message);
             this.showEdit = false;
+            
+            await Swal.fire({
+                icon: "success",
+                title: "Berhasil",
+                text: result.message,
+            });
+            
             location.reload();
 
         } catch (errors) {
-            console.error(errors);
+            Swal.fire({
+                icon: "error",
+                title: "Validasi Gagal",
+                text: errors.message,
+            });
+            // console.error(errors);
             alert('Terjadi kesalahan sistem');
         }
     },
