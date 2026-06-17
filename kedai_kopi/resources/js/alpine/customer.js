@@ -1,12 +1,20 @@
 export default () => ({
-    showEdit: false,
+    showModal: false,
     showDelete: false,
+    mode: 'create',
     customer: {},
     errors: {},
 
+    createCust() {
+        this.mode = 'create';
+        this.customer = {};
+        this.showModal = true
+    },
+
     editCust(cust) {
+        this.mode = 'edit';
         this.customer = cust;
-        this.showEdit = true;
+        this.showModal = true;
     },
 
     deleteCust(cust) {
@@ -14,10 +22,17 @@ export default () => ({
         this.showDelete = true;
     },
 
-    async submitEdit() {
+    async submit() {
+        this.errors = {};
+
+        const isEdit = this.mode === 'edit';
+        const url = isEdit ? `/customers/${this.customer.id}` : '/customers';
         const formData = new FormData();
 
-        formData.append('_method', 'PUT');
+        if (isEdit) {
+            formData.append('_method', 'PUT');
+        }
+        
         formData.append('name', this.customer.name);
         formData.append('email', this.customer.email);
         formData.append('phone', this.customer.phone);
@@ -25,18 +40,15 @@ export default () => ({
         formData.append('status', this.customer.status);
 
         try {
-            const response = await fetch(
-                `/customers/${this.customer.id}`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN':
-                            document.querySelector('meta[name="csrf-token"]').content,
-                        'Accept': 'application/json'
-                    },
-                    body: formData
-                }
-            );
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN':
+                        document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            });
 
             const result = await response.json();
 
@@ -52,10 +64,10 @@ export default () => ({
             alert(result.message);
             this.showEdit = false;
             location.reload();
-            
+
         } catch (errors) {
             console.error(errors);
             alert('Terjadi kesalahan sistem');
         }
-    }
+    },
 })

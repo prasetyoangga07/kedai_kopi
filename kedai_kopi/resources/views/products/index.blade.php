@@ -19,14 +19,10 @@
 
             </div>
 
-            <button @click="productModal=true"
-                class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white px-6 py-4 rounded-2xl shadow-xl">
-
+            <button @click="createProduct()"
+                class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white px-6 py-4 rounded-2xl shadow-xl cursor-pointer">
                 + Tambah Produk
-
             </button>
-
-
         </div>
 
         <!-- KPI -->
@@ -182,14 +178,15 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $products->links('vendor.pagination.custom') }}
 
         </div>
 
-        <!-- EDIT PRODUCT MODAL -->
-        <div x-show="showEdit" x-transition.opacity style="display:none"
+        <!-- PRODUCT MODAL -->
+        <div x-show="showModal" x-transition.opacity style="display:none"
             class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
 
-            <div @click.away="showEdit=false"
+            <div @click.away="showModal=false"
                 class="bg-white w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
 
                 <!-- HEADER -->
@@ -199,7 +196,7 @@
                         <p class="text-white/70 text-xs font-medium">Informasi Produk</p>
                         <h2 class="text-xl font-bold">Edit Produk</h2>
                     </div>
-                    <button @click="showEdit=false" class="text-white hover:bg-white/20 rounded-lg p-1 transition">
+                    <button @click="showModal=false" class="text-white hover:bg-white/20 rounded-lg p-1 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M6 18L18 6M6 6l12 12">
@@ -209,8 +206,7 @@
                 </div>
 
                 <!-- FORM -->
-                <form @submit.prevent="submitEdit()">
-
+                <form @submit.prevent="submit()">
                     <div class="p-6 space-y-4">
                         <!-- Nama Produk & Kategori -->
                         <div class="grid grid-cols-2 gap-3">
@@ -266,7 +262,7 @@
                                         <!-- SKU Label -->
                                         <input x-model="variant.id" :name="`variant[${index}][id]`" type="hidden">
                                         <p class="text-xs text-stone-400 font-medium mb-2">SKU:
-                                            <input x-model="generateSku(variant)" :name="`variant[${index}][sku]`"
+                                            <input x-model="variant.sku = generateSku(variant)" :name="`variant[${index}][sku]`"
                                                 class="text-stone-500">
                                             </input>
                                         </p>
@@ -322,7 +318,7 @@
 
                     <!-- FOOTER -->
                     <div class="sticky bottom-0 bg-[#FAF3E0] border-t border-[#E6D7C8] p-4 flex justify-end gap-2">
-                        <button @click="showEdit=false"
+                        <button @click="showModal=false"
                             class="px-4 py-2 rounded-lg text-sm font-semibold border border-[#DDB892] text-[#6F4E37] hover:bg-white transition cursor-pointer">
                             Batal
                         </button>

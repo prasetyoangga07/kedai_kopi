@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('variant')->get();
+        $products = Product::with('variant')
+            ->paginate(10);
         $totalProducts = Product::all()->count();
         return view('products.index', compact('products', 'totalProducts'));
     }
@@ -30,9 +31,37 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        try {
+            $product = Product::create([
+                'name' => $request->name,
+                'category' => $request->category,
+                'description' => $request->description
+            ]);
+            
+            foreach ($request->variant as $variant) {
+                $product->variant()->create([
+                    'sku' => $variant['sku'],
+                    'variant_name' => $variant['variant_name'],
+                    'price' => $variant['price'],
+                    'is_active' => $variant['is_active']
+                ]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Produk berhasil diperbarui'
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'errors' => true,
+                'message' => $th->getMessage(),
+                'lline' => $th->getLine(),
+                'file' => $th->getFile()
+            ]);
+        }
     }
 
     /**
@@ -98,7 +127,6 @@ class ProductController extends Controller
             $data->delete();
 
             return redirect()->back()->with('success', 'Data berhasil dihapus');
-
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }

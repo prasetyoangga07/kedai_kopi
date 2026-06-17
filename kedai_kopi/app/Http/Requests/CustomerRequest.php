@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CustomerRequest extends FormRequest
 {
@@ -25,9 +26,16 @@ class CustomerRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
 
-            'email' => 'required|email|unique:customers,email,' . $this->route('customer')->id,
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('customers', 'email')->ignore($this->route('customer')),
+            ],
 
-            'phone' => 'required|unique:customers,phone,' . $this->route('customer')->id,
+            'phone' => [
+                'required',
+                Rule::unique('customers', 'phone')->ignore($this->route('customer')),
+            ],
 
             'points' => 'required|numeric|min:0',
 

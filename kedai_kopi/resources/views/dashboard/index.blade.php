@@ -149,13 +149,17 @@
                 Customer Insight
             </h3>
 
-            <p class="mt-3 text-stone-500">
-                {{ $topConfidence }}% pelanggan membeli
-                {{ collect($topRules->antecedents)->join(', ', ' & ') }}
-                dan
-                {{ collect($topRules->consequents)->join(', ', '& ') }}
-                secara bersamaan.
-            </p>
+            @if ($topConfidence && $topRules)
+                <p class="mt-3 text-stone-500">
+                    {{ $topConfidence }}% pelanggan membeli
+                    {{ collect($topRules->antecedents)->join(', ', ' & ') }}
+                    dan
+                    {{ collect($topRules->consequents)->join(', ', '& ') }}
+                    secara bersamaan.
+                </p>
+            @else
+                jalankan apriori untuk melihat insight
+            @endif
         </div>
 
         <div class="bg-white rounded-3xl p-6 shadow-lg">
@@ -177,12 +181,16 @@
             <h3 class="font-bold text-xl mt-4">
                 Apriori Recommendation
             </h3>
-            <p class="mt-3 text-stone-500">
-                {{ collect($topRules->antecedents)->join(', ', ' & ') }}
-                 ➜ 
-                {{ collect($topRules->consequents)->join(', ', '& ') }} 
-                (Confidence {{ $topConfidence }}%)
-            </p>
+            @if ($topConfidence && $topRules)
+                <p class="mt-3 text-stone-500">
+                    {{ collect($topRules->antecedents)->join(', ', ' & ') }}
+                    ➜ 
+                    {{ collect($topRules->consequents)->join(', ', '& ') }} 
+                    (Confidence {{ $topConfidence }}%)
+                </p>
+            @else
+                jalankan apriori untuk melihat insight
+            @endif
         </div>
     </div>
 

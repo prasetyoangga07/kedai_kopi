@@ -1,50 +1,51 @@
-1,Promo Cappuccino 20%,Diskon cappuccino pagi hari,active,discount,20,5000000,2026-06-01,2026-06-30,campaign1.jpg,1,2026-06-01 08:00:00,NULL
-2,Buy 1 Get 1 Latte,Promo latte spesial,active,buy1get1,0,8000000,2026-06-10,2026-07-10,campaign2.jpg,1,2026-06-10 08:00:00,NULL
-3,Weekend Coffee Bundle,Paket kopi dan pastry,active,bundle,15,6000000,2026-06-15,2026-07-15,campaign3.jpg,1,2026-06-15 08:00:00,NULL
-4,Member Loyalty Month,Promo pelanggan loyal,active,loyalty,10,4000000,2026-06-01,2026-06-30,campaign4.jpg,1,2026-06-01 08:00:00,NULL
-5,Summer Coffee Fest,Promo seasonal kopi,active,seasonal,25,12000000,2026-06-20,2026-08-01,campaign5.jpg,1,2026-06-20 08:00:00,NULL
-6,Promo Espresso 30%,Diskon espresso pilihan,active,discount,30,6000000,2026-01-29,2026-02-13,campaign6.jpg,1,2026-01-27 00:00:00,NULL
-7,Buy 2 Get 1 Americano,Promo americano hemat,completed,buy1get1,0,4000000,2026-01-27,2026-03-25,campaign7.jpg,1,2026-01-22 00:00:00,NULL
-8,Morning Bundle Deal,Paket sarapan dan kopi,active,bundle,10,6000000,2026-01-09,2026-01-24,campaign8.jpg,1,2026-01-07 00:00:00,NULL
-9,Student Discount,Diskon khusus pelajar,completed,discount,15,6000000,2026-06-04,2026-06-19,campaign9.jpg,1,2026-05-29 00:00:00,NULL
-10,Flash Sale Frappuccino,Flash sale minuman dingin,active,flash_sale,40,15000000,2026-05-20,2026-06-29,campaign10.jpg,1,2026-05-15 00:00:00,NULL
-11,Cashback Weekend,Cashback setiap akhir pekan,inactive,cashback,0,10000000,2026-01-02,2026-01-26,campaign11.jpg,1,2025-12-30 00:00:00,NULL
-12,Referral Bonus Program,Program referral pelanggan,active,referral,0,4000000,2026-02-25,2026-04-01,campaign12.jpg,1,2026-02-21 00:00:00,NULL
-13,Iced Tea Promo,Diskon teh dingin spesial,completed,discount,20,8000000,2026-04-02,2026-05-08,campaign13.jpg,1,2026-03-26 00:00:00,NULL
-14,Mocha Monday,Promo hari Senin untuk mocha,active,discount,25,12000000,2026-04-28,2026-06-15,campaign14.jpg,1,2026-04-27 00:00:00,NULL
-15,Afternoon Bundle,Paket sore hari spesial,completed,bundle,12,10000000,2026-03-17,2026-05-10,campaign15.jpg,1,2026-03-12 00:00:00,NULL
-16,VIP Member Flash Sale,Flash sale eksklusif member,active,flash_sale,35,8000000,2026-01-18,2026-02-03,campaign16.jpg,1,2026-01-17 00:00:00,NULL
-17,New Menu Launch,Promo peluncuran menu baru,active,seasonal,20,15000000,2026-01-26,2026-03-05,campaign17.jpg,1,2026-01-20 00:00:00,NULL
-18,Birthday Month Offer,Promo ulang tahun pelanggan,active,loyalty,30,6000000,2026-02-11,2026-03-20,campaign18.jpg,1,2026-02-05 00:00:00,NULL
-19,Double Points Tuesday,Poin ganda setiap Selasa,active,loyalty,0,6000000,2026-01-19,2026-03-12,campaign19.jpg,1,2026-01-17 00:00:00,NULL
-20,Rainy Day Promo,Promo hari hujan,completed,seasonal,15,6000000,2026-04-08,2026-05-09,campaign20.jpg,1,2026-04-02 00:00:00,NULL
-21,Buy 3 Get 1 Croissant,Promo roti croissant,active,buy1get1,0,10000000,2026-01-15,2026-02-12,campaign21.jpg,1,2026-01-11 00:00:00,NULL
-22,Loyalty Milestone Reward,Hadiah pencapaian poin,completed,loyalty,20,10000000,2026-01-17,2026-02-13,campaign22.jpg,1,2026-01-15 00:00:00,NULL
-23,Cashback Payday,Cashback di hari gajian,inactive,cashback,0,5000000,2026-05-08,2026-06-16,campaign23.jpg,1,2026-05-05 00:00:00,NULL
-24,Seasonal Matcha Promo,Promo minuman matcha,completed,seasonal,18,8000000,2026-03-05,2026-04-23,campaign24.jpg,1,2026-02-27 00:00:00,NULL
-25,Grand Opening Anniversary,Promo ulang tahun toko,inactive,seasonal,25,10000000,2026-04-20,2026-06-10,campaign25.jpg,1,2026-04-18 00:00:00,NULL
-26,Referral Double Reward,Reward ganda program referral,active,referral,0,3000000,2026-05-11,2026-06-25,campaign26.jpg,1,2026-05-04 00:00:00,NULL
-27,Midnight Bundle,Paket malam spesial,active,bundle,10,12000000,2026-02-09,2026-04-04,campaign27.jpg,1,2026-02-04 00:00:00,NULL
-28,Flash Sale Cold Brew,Flash sale cold brew,completed,flash_sale,30,15000000,2026-04-09,2026-05-17,campaign28.jpg,1,2026-04-04 00:00:00,NULL
-29,Weekend Loyalty Points,Poin ekstra akhir pekan,active,loyalty,0,8000000,2026-05-22,2026-06-05,campaign29.jpg,1,2026-05-15 00:00:00,NULL
-30,Caramel Macchiato 25% Off,Diskon caramel macchiato,active,discount,25,12000000,2026-03-29,2026-04-19,campaign30.jpg,1,2026-03-27 00:00:00,NULL
-31,Summer Refresher Pack,Paket minuman musim panas,active,seasonal,20,5000000,2026-01-01,2026-03-02,campaign31.jpg,1,2025-12-27 00:00:00,NULL
-32,Tuesday Cashback,Cashback spesial hari Selasa,completed,cashback,0,6000000,2026-06-10,2026-07-13,campaign32.jpg,1,2026-06-08 00:00:00,NULL
-33,Family Bundle Promo,Paket keluarga hemat,completed,bundle,15,3000000,2026-02-11,2026-03-31,campaign33.jpg,1,2026-02-06 00:00:00,NULL
-34,Pastry + Coffee Deal,Promo kopi dan kue bersama,active,bundle,10,10000000,2026-05-06,2026-05-21,campaign34.jpg,1,2026-04-29 00:00:00,NULL
-35,Exclusive App Discount,Diskon khusus pengguna aplikasi,active,discount,20,4000000,2026-03-03,2026-03-20,campaign35.jpg,1,2026-03-02 00:00:00,NULL
-36,Chai Latte Special,Promo chai latte pilihan,completed,discount,15,5000000,2026-05-05,2026-05-23,campaign36.jpg,1,2026-05-03 00:00:00,NULL
-37,Brunch Bundle Sunday,Paket brunch hari Minggu,active,bundle,12,8000000,2026-05-02,2026-06-20,campaign37.jpg,1,2026-04-27 00:00:00,NULL
-38,Triple Points Weekend,Poin tiga kali lipat,completed,loyalty,0,6000000,2026-04-19,2026-05-16,campaign38.jpg,1,2026-04-13 00:00:00,NULL
-39,Cold Drink Summer Fest,Festival minuman dingin,active,seasonal,22,15000000,2026-04-13,2026-06-08,campaign39.jpg,1,2026-04-08 00:00:00,NULL
-40,Flash Sale Matcha Latte,Flash sale matcha latte,active,flash_sale,35,4000000,2026-01-31,2026-03-01,campaign40.jpg,1,2026-01-28 00:00:00,NULL
-41,New Member Welcome,Promo selamat datang member baru,active,loyalty,10,6000000,2026-05-31,2026-07-19,campaign41.jpg,1,2026-05-30 00:00:00,NULL
-42,Cashback Monday,Cashback spesial hari Senin,active,cashback,0,3000000,2026-01-16,2026-02-13,campaign42.jpg,1,2026-01-09 00:00:00,NULL
-43,Vanilla Latte 20% Off,Diskon vanilla latte,active,discount,20,8000000,2026-01-19,2026-03-06,campaign43.jpg,1,2026-01-13 00:00:00,NULL
-44,Holiday Season Bundle,Paket spesial musim liburan,active,seasonal,18,15000000,2026-02-24,2026-04-13,campaign44.jpg,1,2026-02-22 00:00:00,NULL
-45,Afternoon Happy Hour,Happy hour jam siang,active,discount,30,4000000,2026-04-15,2026-05-11,campaign45.jpg,1,2026-04-09 00:00:00,NULL
-46,Referral Get Free Coffee,Dapat kopi gratis dari referral,inactive,referral,0,15000000,2026-04-01,2026-05-12,campaign46.jpg,1,2026-03-25 00:00:00,NULL
-47,Buy 1 Get 1 Hot Choco,Promo hot chocolate,active,buy1get1,0,3000000,2026-01-14,2026-03-12,campaign47.jpg,1,2026-01-10 00:00:00,NULL
-48,Ramadan Special Bundle,Paket spesial Ramadan,active,seasonal,20,6000000,2026-03-28,2026-04-17,campaign48.jpg,1,2026-03-26 00:00:00,NULL
-49,Flash Sale Tiramisu,Flash sale dessert tiramisu,inactive,flash_sale,40,5000000,2026-04-25,2026-05-17,campaign49.jpg,1,2026-04-22 00:00:00,NULL
-50,Weekend Cashback Plus,Cashback plus akhir pekan,inactive,cashback,0,4000000,2026-03-05,2026-03-23,campaign50.jpg,1,2026-03-04 00:00:00,NULL
+name,description,status,campaign_type,discount_percentage,target_revenue,start_date,end_date,banner,created_by,created_at,updated_at
+Promo Cappuccino 20%,Diskon cappuccino pagi hari,active,discount,20,5000000,2026-06-01,2026-06-30,campaign1.jpg,1,2026-06-01 08:00:00,NULL
+Buy 1 Get 1 Latte,Promo latte spesial,active,buy1get1,0,8000000,2026-06-10,2026-07-10,campaign2.jpg,1,2026-06-10 08:00:00,NULL
+Weekend Coffee Bundle,Paket kopi dan pastry,active,bundle,15,6000000,2026-06-15,2026-07-15,campaign3.jpg,1,2026-06-15 08:00:00,NULL
+Member Loyalty Month,Promo pelanggan loyal,active,loyalty,10,4000000,2026-06-01,2026-06-30,campaign4.jpg,1,2026-06-01 08:00:00,NULL
+Summer Coffee Fest,Promo seasonal kopi,active,seasonal,25,12000000,2026-06-20,2026-08-01,campaign5.jpg,1,2026-06-20 08:00:00,NULL
+Promo Espresso 30%,Diskon espresso pilihan,active,discount,30,6000000,2026-01-29,2026-02-13,campaign6.jpg,1,2026-01-27 00:00:00,NULL
+Buy 2 Get 1 Americano,Promo americano hemat,completed,buy1get1,0,4000000,2026-01-27,2026-03-25,campaign7.jpg,1,2026-01-22 00:00:00,NULL
+Morning Bundle Deal,Paket sarapan dan kopi,active,bundle,10,6000000,2026-01-09,2026-01-24,campaign8.jpg,1,2026-01-07 00:00:00,NULL
+Student Discount,Diskon khusus pelajar,completed,discount,15,6000000,2026-06-04,2026-06-19,campaign9.jpg,1,2026-05-29 00:00:00,NULL
+Flash Sale Frappuccino,Flash sale minuman dingin,active,flash_sale,40,15000000,2026-05-20,2026-06-29,campaign10.jpg,1,2026-05-15 00:00:00,NULL
+Cashback Weekend,Cashback setiap akhir pekan,inactive,cashback,0,10000000,2026-01-02,2026-01-26,campaign11.jpg,1,2025-12-30 00:00:00,NULL
+Referral Bonus Program,Program referral pelanggan,active,referral,0,4000000,2026-02-25,2026-04-01,campaign12.jpg,1,2026-02-21 00:00:00,NULL
+Iced Tea Promo,Diskon teh dingin spesial,completed,discount,20,8000000,2026-04-02,2026-05-08,campaign13.jpg,1,2026-03-26 00:00:00,NULL
+Mocha Monday,Promo hari Senin untuk mocha,active,discount,25,12000000,2026-04-28,2026-06-15,campaign14.jpg,1,2026-04-27 00:00:00,NULL
+Afternoon Bundle,Paket sore hari spesial,completed,bundle,12,10000000,2026-03-17,2026-05-10,campaign15.jpg,1,2026-03-12 00:00:00,NULL
+VIP Member Flash Sale,Flash sale eksklusif member,active,flash_sale,35,8000000,2026-01-18,2026-02-03,campaign16.jpg,1,2026-01-17 00:00:00,NULL
+New Menu Launch,Promo peluncuran menu baru,active,seasonal,20,15000000,2026-01-26,2026-03-05,campaign17.jpg,1,2026-01-20 00:00:00,NULL
+Birthday Month Offer,Promo ulang tahun pelanggan,active,loyalty,30,6000000,2026-02-11,2026-03-20,campaign18.jpg,1,2026-02-05 00:00:00,NULL
+Double Points Tuesday,Poin ganda setiap Selasa,active,loyalty,0,6000000,2026-01-19,2026-03-12,campaign19.jpg,1,2026-01-17 00:00:00,NULL
+Rainy Day Promo,Promo hari hujan,completed,seasonal,15,6000000,2026-04-08,2026-05-09,campaign20.jpg,1,2026-04-02 00:00:00,NULL
+Buy 3 Get 1 Croissant,Promo roti croissant,active,buy1get1,0,10000000,2026-01-15,2026-02-12,campaign21.jpg,1,2026-01-11 00:00:00,NULL
+Loyalty Milestone Reward,Hadiah pencapaian poin,completed,loyalty,20,10000000,2026-01-17,2026-02-13,campaign22.jpg,1,2026-01-15 00:00:00,NULL
+Cashback Payday,Cashback di hari gajian,inactive,cashback,0,5000000,2026-05-08,2026-06-16,campaign23.jpg,1,2026-05-05 00:00:00,NULL
+Seasonal Matcha Promo,Promo minuman matcha,completed,seasonal,18,8000000,2026-03-05,2026-04-23,campaign24.jpg,1,2026-02-27 00:00:00,NULL
+Grand Opening Anniversary,Promo ulang tahun toko,inactive,seasonal,25,10000000,2026-04-20,2026-06-10,campaign25.jpg,1,2026-04-18 00:00:00,NULL
+Referral Double Reward,Reward ganda program referral,active,referral,0,3000000,2026-05-11,2026-06-25,campaign26.jpg,1,2026-05-04 00:00:00,NULL
+Midnight Bundle,Paket malam spesial,active,bundle,10,12000000,2026-02-09,2026-04-04,campaign27.jpg,1,2026-02-04 00:00:00,NULL
+Flash Sale Cold Brew,Flash sale cold brew,completed,flash_sale,30,15000000,2026-04-09,2026-05-17,campaign28.jpg,1,2026-04-04 00:00:00,NULL
+Weekend Loyalty Points,Poin ekstra akhir pekan,active,loyalty,0,8000000,2026-05-22,2026-06-05,campaign29.jpg,1,2026-05-15 00:00:00,NULL
+Caramel Macchiato 25% Off,Diskon caramel macchiato,active,discount,25,12000000,2026-03-29,2026-04-19,campaign30.jpg,1,2026-03-27 00:00:00,NULL
+Summer Refresher Pack,Paket minuman musim panas,active,seasonal,20,5000000,2026-01-01,2026-03-02,campaign31.jpg,1,2025-12-27 00:00:00,NULL
+Tuesday Cashback,Cashback spesial hari Selasa,completed,cashback,0,6000000,2026-06-10,2026-07-13,campaign32.jpg,1,2026-06-08 00:00:00,NULL
+Family Bundle Promo,Paket keluarga hemat,completed,bundle,15,3000000,2026-02-11,2026-03-31,campaign33.jpg,1,2026-02-06 00:00:00,NULL
+Pastry + Coffee Deal,Promo kopi dan kue bersama,active,bundle,10,10000000,2026-05-06,2026-05-21,campaign34.jpg,1,2026-04-29 00:00:00,NULL
+Exclusive App Discount,Diskon khusus pengguna aplikasi,active,discount,20,4000000,2026-03-03,2026-03-20,campaign35.jpg,1,2026-03-02 00:00:00,NULL
+Chai Latte Special,Promo chai latte pilihan,completed,discount,15,5000000,2026-05-05,2026-05-23,campaign36.jpg,1,2026-05-03 00:00:00,NULL
+Brunch Bundle Sunday,Paket brunch hari Minggu,active,bundle,12,8000000,2026-05-02,2026-06-20,campaign37.jpg,1,2026-04-27 00:00:00,NULL
+Triple Points Weekend,Poin tiga kali lipat,completed,loyalty,0,6000000,2026-04-19,2026-05-16,campaign38.jpg,1,2026-04-13 00:00:00,NULL
+Cold Drink Summer Fest,Festival minuman dingin,active,seasonal,22,15000000,2026-04-13,2026-06-08,campaign39.jpg,1,2026-04-08 00:00:00,NULL
+Flash Sale Matcha Latte,Flash sale matcha latte,active,flash_sale,35,4000000,2026-01-31,2026-03-01,campaign40.jpg,1,2026-01-28 00:00:00,NULL
+New Member Welcome,Promo selamat datang member baru,active,loyalty,10,6000000,2026-05-31,2026-07-19,campaign41.jpg,1,2026-05-30 00:00:00,NULL
+Cashback Monday,Cashback spesial hari Senin,active,cashback,0,3000000,2026-01-16,2026-02-13,campaign42.jpg,1,2026-01-09 00:00:00,NULL
+Vanilla Latte 20% Off,Diskon vanilla latte,active,discount,20,8000000,2026-01-19,2026-03-06,campaign43.jpg,1,2026-01-13 00:00:00,NULL
+Holiday Season Bundle,Paket spesial musim liburan,active,seasonal,18,15000000,2026-02-24,2026-04-13,campaign44.jpg,1,2026-02-22 00:00:00,NULL
+Afternoon Happy Hour,Happy hour jam siang,active,discount,30,4000000,2026-04-15,2026-05-11,campaign45.jpg,1,2026-04-09 00:00:00,NULL
+Referral Get Free Coffee,Dapat kopi gratis dari referral,inactive,referral,0,15000000,2026-04-01,2026-05-12,campaign46.jpg,1,2026-03-25 00:00:00,NULL
+Buy 1 Get 1 Hot Choco,Promo hot chocolate,active,buy1get1,0,3000000,2026-01-14,2026-03-12,campaign47.jpg,1,2026-01-10 00:00:00,NULL
+Ramadan Special Bundle,Paket spesial Ramadan,active,seasonal,20,6000000,2026-03-28,2026-04-17,campaign48.jpg,1,2026-03-26 00:00:00,NULL
+Flash Sale Tiramisu,Flash sale dessert tiramisu,inactive,flash_sale,40,5000000,2026-04-25,2026-05-17,campaign49.jpg,1,2026-04-22 00:00:00,NULL
+Weekend Cashback Plus,Cashback plus akhir pekan,inactive,cashback,0,4000000,2026-03-05,2026-03-23,campaign50.jpg,1,2026-03-04 00:00:00,NULL
