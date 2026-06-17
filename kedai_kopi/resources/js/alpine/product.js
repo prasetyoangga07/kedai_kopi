@@ -1,12 +1,20 @@
 export default () => ({
-    showEdit: false,
+    showModal: false,
     showDelete: false,
+    mode: 'create',
     product: {},
     errors: {},
 
+    createProduct() {
+        this.mode = 'create';
+        this.product = {};
+        this.showModal = true;
+    },
+
     editProduct(product) {
+        this.mode = 'edit';
         this.product = product;
-        this.showEdit = true;
+        this.showModal = true;
     },
 
     deleteProduct(product) {
@@ -47,12 +55,17 @@ export default () => ({
             .join('-');
     },
 
-    async submitEdit() {
+    async submit() {
         this.errors = {};
 
+        const isEdit = this.mode === 'edit';
+        const url = isEdit ? `/products/${this.product.id}` : '/products';
         const formData = new FormData();
 
-        formData.append('_method', 'PUT');
+        if (isEdit) {
+            formData.append('_method', 'PUT');
+        }
+
         formData.append('name', this.product.name);
         formData.append('category', this.product.category);
         formData.append('description', this.product.description);
@@ -64,7 +77,7 @@ export default () => ({
             );
             formData.append(
                 `variant[${index}][sku]`,
-                variant.id ?? ''
+                variant.sku ?? ''
             );
             formData.append(
                 `variant[${index}][variant_name]`,
@@ -76,22 +89,24 @@ export default () => ({
             );
             formData.append(
                 `variant[${index}][is_active]`,
-                variant.price ? 1 : 0
+                variant.is_active ? 1 : 0
             );
         });
 
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+
         try {
-            const response = await fetch(
-                `/products/${this.product.id}`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN':
-                            document.querySelector('meta[name="csrf-token"]').content,
-                        'Accept': 'application/json'
-                    },
-                    body: formData
-                }
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN':
+                        document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            }
             );
 
             const result = await response.json();

@@ -27,10 +27,10 @@ class Campaign extends Model
     public function products()
     {
         return $this->belongsToMany(
-            Product::class,
+            ProductVariant::class,
             'campaign_products',
             'campaign_id',
-            'product_id'
+            'variant_id'
         );
     }
 

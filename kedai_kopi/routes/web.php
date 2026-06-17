@@ -17,12 +17,14 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::prefix('/customers')->name('customers.')->controller(CustomerController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
     Route::put('/{customer}', 'update')->name('update');
     Route::delete('/{customer}', 'destroy')->name('destroy');
 });
 
 Route::prefix('/products')->name('products.')->controller(ProductController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
     Route::put('/{product}', 'update')->name('update');
     Route::delete('/{product}', 'destroy')->name('destroy');
 });

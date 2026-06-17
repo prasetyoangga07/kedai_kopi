@@ -21,7 +21,7 @@ class CampaignController extends Controller
 
         $totalRevenue = CampaignStatistic::sum('revenue');
 
-        $totalProductsPromo = CampaignProduct::distinct('product_id')->count('product_id');
+        $totalProductsPromo = CampaignProduct::distinct('variant_id')->count('variant_id');
 
         $avgConversion = round(
             CampaignStatistic::avg('conversion_rate') ?? 0,

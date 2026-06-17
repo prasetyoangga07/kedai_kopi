@@ -13,8 +13,19 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $cust = Customer::all();
-        return view('customers.index', compact('cust'));
+        $cust = Customer::query()
+            ->when(
+                request('search'),
+                fn($q) => $q->where(
+                    'name',
+                    'like',
+                    '%' . request('search') . '%'
+                ) 
+            )
+            ->paginate(10)
+            ->withQueryString();
+        $customer = Customer::all();
+        return view('customers.index', compact('cust', 'customer'));
     }
 
     /**
@@ -28,9 +39,28 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        //
+        try {
+            Customer::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'points' => $request->points,
+            'status' => $request->status
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data pelanggan berhasil diperbarui'
+        ]);;
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan sistem'
+            ]);
+        }   
     }
 
     /**
@@ -76,9 +106,8 @@ class CustomerController extends Controller
         try {
             $data = Customer::findOrFail($id);
             $data->delete();
-            
-            return redirect()->back()->with('success', 'Data berhasil diperbarui');
 
+            return redirect()->back()->with('success', 'Data berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
