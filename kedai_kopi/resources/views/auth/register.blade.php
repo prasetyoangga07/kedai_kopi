@@ -8,7 +8,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>KOPIN LOGIN</title>
+    <title>KOPIN REGISTER</title>
 
     @vite(['resources/css/app.css','resources/js/app.js'])
 
@@ -21,7 +21,7 @@
 
         <!-- LEFT -->
 
-        <div class="hidden lg:flex relative overflow-hidden bg-gradient-to-br from-[#2B2118] via-[#4A3728] to-[#6F4E37] text-white">
+        <div class="hidden lg:flex relative overflow-hidden bg-linear-to-br from-[#2B2118] via-[#4A3728] to-[#6F4E37] text-white">
 
             <!-- Glow -->
 
@@ -52,11 +52,11 @@
                 <h1
                     class="text-6xl font-black leading-tight mt-6">
 
-                    Kelola Bisnis
+                    Bergabung dengan
                     <br>
-                    Kopi Lebih
+                    Komunitas KOPIN
                     <span class="text-[#DDB892]">
-                        Cerdas
+                        Sekarang
                     </span>
 
                 </h1>
@@ -64,9 +64,8 @@
                 <p
                     class="mt-6 text-lg text-stone-200 max-w-xl leading-relaxed">
 
-                    Kelola pelanggan, campaign, laporan bisnis,
-                    hingga rekomendasi produk menggunakan
-                    Apriori dalam satu dashboard modern.
+                    Daftar akun pelanggan dan nikmati keuntungan eksklusif dari kedai kopi kami.
+                    Dapatkan poin reward dan akses ke penawaran spesial.
 
                 </p>
 
@@ -81,7 +80,7 @@
                         </h2>
 
                         <p class="text-sm text-stone-300">
-                            Customer
+                            Member Aktif
                         </p>
 
                     </div>
@@ -107,7 +106,7 @@
                         </h2>
 
                         <p class="text-sm text-stone-300">
-                            Revenue
+                            Reward
                         </p>
 
                     </div>
@@ -117,8 +116,6 @@
             </div>
 
         </div>
-
-        <!-- RIGHT -->
 
         <!-- RIGHT -->
 
@@ -146,7 +143,7 @@
                     <div class="text-center">
 
                         <div
-                            class="w-20 h-20 mx-auto rounded-[24px]
+                            class="w-20 h-20 mx-auto rounded-3xl
                 bg-[#FAF3E0]
                 flex items-center justify-center
                 border border-[#E6D7C8]
@@ -158,17 +155,15 @@
 
                         </div>
 
-                        <h2
-                            class="text-5xl font-black text-[#2B2118] mt-6">
+                        <h2 class="text-5xl font-black text-[#2B2118] mt-6">
 
-                            Welcome Back
+                            Daftar Akun
 
                         </h2>
 
-                        <p
-                            class="text-stone-500 mt-3">
+                        <p class="text-stone-500 mt-3">
 
-                            Login untuk mengakses dashboard KOPIN CRM
+                            Buat akun KOPIN CRM untuk menikmati pengalaman berbelanja terbaik
 
                         </p>
 
@@ -181,14 +176,14 @@
                         <div
                             class="px-4 py-2 rounded-full bg-[#FAF3E0] text-[#6F4E37] text-xs font-semibold">
 
-                            Customer Analytics
+                            Gratis Untuk Semua
 
                         </div>
 
                         <div
                             class="px-4 py-2 rounded-full bg-[#FAF3E0] text-[#6F4E37] text-xs font-semibold">
 
-                            Apriori AI
+                            Reward Menarik
 
                         </div>
 
@@ -198,10 +193,39 @@
 
                     <form
                         method="POST"
-                        action="{{ route('login.process') }}"
-                        class="mt-10 space-y-5">
+                        action="{{ route('register.process') }}"
+                        class="mt-10 space-y-4">
 
                         @csrf
+
+                        <!-- NAME -->
+
+                        <div>
+
+                            <label
+                                class="text-sm font-semibold text-stone-600">
+
+                                Nama Lengkap
+
+                            </label>
+
+                            <div class="relative mt-2">
+
+                                <input
+                                    name="name"
+                                    type="text"
+                                    required
+                                    value="{{ old('name') }}"
+                                    placeholder="Masukkan nama lengkap Anda"
+                                    class="w-full rounded-2xl border @error('name') border-red-500 @else border-stone-200 @enderror pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
+
+                            </div>
+
+                            @error('name')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+
+                        </div>
 
                         <!-- EMAIL -->
 
@@ -219,11 +243,16 @@
                                 <input
                                     name="email"
                                     type="email"
+                                    required
                                     value="{{ old('email') }}"
-                                    placeholder="admin@coffeecrm.com"
-                                    class="w-full rounded-2xl border border-stone-200 pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
+                                    placeholder="nama@email.com"
+                                    class="w-full rounded-2xl border @error('email') border-red-500 @else border-stone-200 @enderror pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
 
                             </div>
+
+                            @error('email')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
 
                         </div>
 
@@ -243,42 +272,66 @@
                                 <input
                                     name="password"
                                     type="password"
-                                    placeholder="••••••••"
-                                    class="w-full rounded-2xl border border-stone-200 pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
+                                    required
+                                    placeholder="Minimal 6 karakter"
+                                    class="w-full rounded-2xl border @error('password') border-red-500 @else border-stone-200 @enderror pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
 
                             </div>
 
+                            @error('password')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+
                         </div>
 
-                        <!-- REMEMBER -->
+                        <!-- PASSWORD CONFIRMATION -->
 
-                        <div
-                            class="flex justify-between items-center text-sm">
+                        <div>
 
                             <label
-                                class="flex items-center gap-2 text-stone-600">
+                                class="text-sm font-semibold text-stone-600">
 
-                                <input type="checkbox">
-
-                                Remember me
+                                Konfirmasi Password
 
                             </label>
 
-                            <a
-                                href="#"
-                                class="font-semibold text-[#6F4E37]">
+                            <div class="relative mt-2">
 
-                                Forgot Password?
+                                <input
+                                    name="password_confirmation"
+                                    type="password"
+                                    required
+                                    placeholder="Masukkan ulang password"
+                                    class="w-full rounded-2xl border @error('password_confirmation') border-red-500 @else border-stone-200 @enderror pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
 
-                            </a>
+                            </div>
+
+                            @error('password_confirmation')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+
+                        </div>
+
+                        <!-- TERMS -->
+
+                        <div class="flex items-start gap-2 text-sm">
+
+                            <input type="checkbox" required class="mt-1">
+
+                            <label
+                                class="text-stone-600">
+
+                                Saya setuju dengan <a href="#" class="text-[#6F4E37] font-semibold hover:underline">Syarat & Ketentuan</a> dan <a href="#" class="text-[#6F4E37] font-semibold hover:underline">Kebijakan Privasi</a>
+
+                            </label>
 
                         </div>
 
                         <!-- BUTTON -->
 
-                        <button
+                        <button type="submit"
                             class="w-full py-4 rounded-2xl
-                bg-gradient-to-r
+                bg-linear-to-r
                 from-[#6F4E37]
                 to-[#A67B5B]
                 text-white
@@ -288,40 +341,34 @@
                 hover:shadow-xl
                 transition duration-300">
 
-                            Login
+                            Buat Akun
 
                         </button>
 
                     </form>
 
-                    <!-- DIVIDER -->
+                    <!-- LOGIN LINK -->
 
-                    <div class="flex items-center gap-4 my-8">
+                    <div class="text-center mt-8">
 
-                        <div class="h-px bg-stone-200 flex-1"></div>
+                        <p class="text-stone-600">
 
-                        <span class="text-xs text-stone-400">
-                            DEMO ACCOUNT
-                        </span>
+                            Sudah punya akun? <a href="{{ route('login') }}" class="text-[#6F4E37] font-semibold hover:underline">Login disini</a>
 
-                        <div class="h-px bg-stone-200 flex-1"></div>
-
-                    </div>
-
-                    <!-- FOOTER -->
-
-                    <div
-                        class="text-center mt-8">
-
-                        <p
-                            class="text-xs text-stone-400">
-
-                            KOPIN CRM • Coffee Business Intelligence
 
                         </p>
 
                     </div>
 
+                    <!-- FOOTER -->
+
+                    <div class="text-center mt-6">
+
+                        <p class="text-xs text-stone-400">
+                            KOPIN CRM • Coffee Business Intelligence
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -330,6 +377,32 @@
         </div>
 
     </div>
+
+    @if(session('error'))
+    <script>
+        window.addEventListener('load', () => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Registrasi Gagal',
+                text: '{{ session("error") }}',
+                confirmButtonColor: '#A67B5B'
+            })
+        });
+    </script>
+    @endif
+
+    @if(session('success'))
+    <script>
+        window.addEventListener('load', () => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Registrasi Berhasil',
+                text: '{{ session("success") }}',
+                confirmButtonColor: '#A67B5B'
+            })
+        });
+    </script>
+    @endif
 
 </body>
 

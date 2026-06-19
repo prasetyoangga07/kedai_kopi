@@ -6,13 +6,31 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerDashboardController;
+use App\Http\Controllers\LandingController;
+
+// =================================
+// AUTHENTICATION ROUTES
+// =================================
+
+// Login
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.process');
+
+// Register
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.process');
 
 
 
 
-Route::view('/login', 'auth.login')->name('login');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard.index');
+});
 
 Route::prefix('/customers')->name('customers.')->controller(CustomerController::class)->group(function () {
     Route::get('/', 'index')->name('index');
@@ -28,7 +46,7 @@ Route::prefix('/products')->name('products.')->controller(ProductController::cla
 
 use App\Http\Controllers\CampaignController;
 
-Route::get('/campaigns', [CampaignController::class,'index'])
+Route::get('/campaigns', [CampaignController::class, 'index'])
     ->name('campaigns.index');
 
 Route::prefix('/apriori')->name('apriori.')->controller(AprioriController::class)->group(function () {
@@ -48,7 +66,20 @@ Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])
     ->name('campaigns.destroy');
 
 // CUSTOMER DASHBOARD
-Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
+Route::middleware('auth')->group(function () {
+
+    Route::get(
+        '/customer/dashboard',
+        [CustomerDashboardController::class, 'index']
+    )->name('customer.dashboard');
+});
+
+// Logout (for customer navbar)
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
+
+
 
 // render full product catalog for customer
 
@@ -92,6 +123,7 @@ Route::middleware('auth')->group(function () {
 //  LANDING PAGE VISIT
 Route::get('/', [LandingController::class, 'index'])
     ->name('landing');
+
 
 Route::get('/promo', [CampaignController::class, 'landing'])
     ->name('promo.index');

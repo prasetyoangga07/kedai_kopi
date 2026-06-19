@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use App\Models\Campaign;
+use App\Models\Customer;
+
+class LandingController extends Controller
+{
+    public function index()
+    {
+        $products = Product::latest()->take(6)->get();
+
+        $campaigns = Campaign::latest()->take(3)->get();
+
+        $customerCount = Customer::count();
+
+        return view('landing', compact(
+            'products',
+            'campaigns',
+            'customerCount'
+        ));
+    }
+}

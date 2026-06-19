@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
+
 {
     /**
      * Show login form
      */
     public function showLoginForm()
+
     {
         return view('auth.login');
     }
@@ -22,9 +22,17 @@ class AuthController extends Controller
     /**
      * Process login request
      */
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
-        $credentials = $request->validated();
+        $validated = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:6'],
+        ]);
+
+        $credentials = [
+            'email' => $validated['email'],
+            'password' => $validated['password'],
+        ];
 
         // Attempt to authenticate
         if (!Auth::attempt($credentials, $request->boolean('remember'))) {
@@ -32,12 +40,23 @@ class AuthController extends Controller
                 ->with('error', 'Email atau password salah. Silakan coba lagi.');
         }
 
+
         // Regenerate session for security
         // (Tanpa hal ini kadang bisa memicu session expired setelah register/login di beberapa flow)
         $request->session()->regenerate();
 
 
         $user = Auth::user();
+
+        // DEBUG: simpan role yang terbaca agar bisa memastikan redirect ke customer berjalan
+        // (nanti boleh dihapus setelah fix)
+        if (config('app.debug')) {
+            \Log::info('[AuthController@login] role user=', [
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'role' => $user->role,
+            ]);
+        }
 
         // Redirect based on role
         return match ($user->role) {
@@ -59,10 +78,15 @@ class AuthController extends Controller
     /**
      * Process register request
      */
-    public function register(RegisterRequest $request)
+    public function register(Request $request)
     {
         try {
-            $validated = $request->validated();
+            $validated = $request->validate([
+                'name' => ['required', 'string', 'min:3', 'max:255'],
+                'email' => ['required', 'email', 'unique:users,email'],
+                'password' => ['required', 'min:6', 'confirmed'],
+                'password_confirmation' => ['required'],
+            ]);
 
             // Create new user with role 'user' (customer)
             $user = User::create([
@@ -71,6 +95,7 @@ class AuthController extends Controller
                 'password' => Hash::make($validated['password']),
                 'role' => 'user',
             ]);
+
 
             return redirect('/login')
                 ->with('success', 'Akun berhasil dibuat! Silakan login dengan email dan password Anda.');

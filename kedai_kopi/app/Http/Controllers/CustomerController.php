@@ -76,9 +76,8 @@ class CustomerController extends Controller
         try {
             $data = Customer::findOrFail($id);
             $data->delete();
-            
-            return redirect()->back()->with('success', 'Data berhasil diperbarui');
 
+            return redirect()->back()->with('success', 'Data berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
