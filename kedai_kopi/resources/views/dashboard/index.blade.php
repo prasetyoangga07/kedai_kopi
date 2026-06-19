@@ -460,7 +460,7 @@
                 labels: @json($label),
                 datasets: [{
                     label: 'Revenue',
-                    data: @json($revenues),
+                    data: @json($revenues) ,
                     borderColor: '#6F4E37',
                     backgroundColor: 'rgba(111,78,55,0.12)',
                     borderWidth: 4,

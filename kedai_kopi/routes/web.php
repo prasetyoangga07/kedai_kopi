@@ -7,9 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect('/login');
-});
+
+
 
 Route::view('/login', 'auth.login')->name('login');
 
@@ -47,3 +46,61 @@ Route::put('/campaigns/{campaign}', [CampaignController::class, 'update'])
 
 Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])
     ->name('campaigns.destroy');
+
+// CUSTOMER DASHBOARD
+Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
+
+// render full product catalog for customer
+
+
+// CUSTOMER PURCHASE & TRANSACTIONS
+Route::middleware('auth')->group(function () {
+    // Purchase menu
+    Route::get('/customer/purchase', [\App\Http\Controllers\CustomerPurchaseController::class, 'index'])
+        ->name('customer.purchase');
+
+    Route::get('/customer/transactions', [\App\Http\Controllers\CustomerPurchaseController::class, 'transactions'])
+        ->name('customer.transactions');
+
+    // Products for customer
+    Route::get('/customer/products', [\App\Http\Controllers\CustomerProductsController::class, 'index'])
+        ->name('customer.products');
+
+    Route::get('/customer/products/{product}', [\App\Http\Controllers\CustomerProductsController::class, 'show'])
+        ->name('customer.products.show');
+
+    // Cart
+    Route::get('/customer/cart', [\App\Http\Controllers\CustomerCartController::class, 'index'])
+        ->name('customer.cart');
+
+    Route::post('/customer/cart/add', [\App\Http\Controllers\CustomerCartController::class, 'add'])
+        ->name('customer.cart.add');
+
+    Route::post('/customer/cart/update', [\App\Http\Controllers\CustomerCartController::class, 'update'])
+        ->name('customer.cart.update');
+
+    Route::post('/customer/cart/remove', [\App\Http\Controllers\CustomerCartController::class, 'remove'])
+        ->name('customer.cart.remove');
+
+    // Checkout
+    Route::post('/customer/checkout', [\App\Http\Controllers\CustomerCartController::class, 'checkout'])
+        ->name('customer.checkout');
+});
+
+
+
+//  LANDING PAGE VISIT
+Route::get('/', [LandingController::class, 'index'])
+    ->name('landing');
+
+Route::get('/promo', [CampaignController::class, 'landing'])
+    ->name('promo.index');
+
+Route::get('/promo/{campaign}', [CampaignController::class, 'showLanding'])
+    ->name('promo.show');
+
+Route::get('/menu', [ProductController::class, 'menu'])
+    ->name('products.menu');
+
+Route::get('/menu/{product}', [ProductController::class, 'show'])
+    ->name('products.show');

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductVariant;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;   
 
 class ProductController extends Controller
 {
@@ -39,9 +39,14 @@ class ProductController extends Controller
      * Display the specified resource.
      */
     public function show(Product $product)
-    {
-        //
-    }
+{
+    $product->load('variant');
+
+    return view(
+        'guest.products.show',
+        compact('product')
+    );
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -102,5 +107,14 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
+    }
+
+    public function menu()
+    {
+        $products = \App\Models\Product::with('variant')
+            ->orderBy('name')
+            ->get();
+
+        return view('guest.products.index', compact('products'));
     }
 }
