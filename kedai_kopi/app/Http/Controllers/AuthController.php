@@ -35,15 +35,9 @@ class AuthController extends Controller
         // Regenerate session for security
         $request->session()->regenerate();
 
-        $user = Auth::user();
-
-        // Redirect based on role
-        return match ($user->role) {
-            'admin' => redirect()->route('dashboard.index')->with('success', 'Selamat datang ' . $user->name),
-            'barista' => redirect()->route('dashboard.index')->with('success', 'Selamat datang ' . $user->name),
-            'user' => redirect()->route('customer.dashboard')->with('success', 'Selamat datang ' . $user->name),
-            default => redirect('/login')->with('error', 'Role tidak dikenali'),
-        };
+        return redirect()->intended(
+            auth()->user()->homeRoute()
+        );
     }
 
     /**
@@ -67,7 +61,6 @@ class AuthController extends Controller
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
-                'role' => 'user',
             ]);
 
             return redirect('/login')

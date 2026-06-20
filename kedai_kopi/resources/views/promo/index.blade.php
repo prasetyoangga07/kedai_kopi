@@ -1,78 +1,10 @@
-<!DOCTYPE html>
+@extends('layouts.app')
 
-<html lang="en">
-
-<head>
-
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>
-        Promo & Campaign | KOPIN
-    </title>
-
-    @vite(['resources/css/app.css','resources/js/app.js'])
-
-
-</head>
-
-<body
-    class="bg-[#F8F3EA]">
-
-
-    <!-- NAVBAR -->
-
-    <nav
-        class="fixed top-0 left-0 right-0 z-50 bg-[#120C07]/90 backdrop-blur-xl border-b border-white/10">
-
-        <div
-            class="max-w-7xl mx-auto px-8">
-
-            <div
-                class="h-20 flex items-center justify-between">
-
-                <a
-                    href="/"
-                    class="text-3xl font-black text-white">
-
-                    KOPIN
-
-                </a>
-
-                <div
-                    class="flex gap-8 text-white">
-
-                    <a href="/">
-                        Home
-                    </a>
-
-                    <a
-                        href="/promo"
-                        class="text-[#DDB892] font-bold">
-
-                        Promo
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </nav>
+@section('content')
 
     <!-- HERO -->
-
-    <section
-        class="relative min-h-[80vh] overflow-hidden flex items-center">
-
-        <div
-            class="absolute inset-0">
-
+    <section class="relative min-h-[80vh] overflow-hidden flex items-center">
+        <div class="absolute inset-0">
             <img
                 src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=2000&q=80"
                 class="w-full h-full object-cover">
@@ -80,15 +12,10 @@
             <div
                 class="absolute inset-0 bg-black/75">
             </div>
-
         </div>
 
-        <div
-            class="relative z-10 max-w-7xl mx-auto px-8">
-
-            <div
-                class="max-w-3xl">
-
+        <div class="relative z-10 max-w-7xl mx-auto px-8">
+            <div class="max-w-3xl">
                 <span
                     class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/10 text-white">
 
@@ -208,10 +135,10 @@
                                 https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1200&q=80
                             @endif
                             "
-                            class="h-[300px] w-full object-cover group-hover:scale-110 transition duration-700">
+                            class="h-75 w-full object-cover group-hover:scale-110 transition duration-700">
 
                         <div
-                            class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent">
+                            class="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent">
                         </div>
 
                         <div
@@ -334,6 +261,5 @@
 
 
     </section>
-</body>
-
-</html>
+    
+@endsection

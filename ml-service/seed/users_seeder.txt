@@ -1,0 +1,18 @@
+ALTER TABLE users AUTO_INCREMENT = 50;
+
+LOAD DATA INFILE 'users.csv'
+INTO TABLE users
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES
+(
+    name,
+    email,
+    password,
+    email_verified_at,
+    remember_token,
+    created_at,
+    @updated_at
+)
+SET updated_at = NULLIF(@updated_at, '');

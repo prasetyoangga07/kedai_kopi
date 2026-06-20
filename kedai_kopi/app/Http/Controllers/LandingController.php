@@ -10,26 +10,16 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $products = Product::with('variant')
-            ->latest()
-            ->take(3)
-            ->get();
+        $products = Product::latest()->take(6)->get();
 
-        $campaigns = Campaign::where('status', 'active')
-            ->latest()
-            ->take(3)
-            ->get();
+        $campaigns = Campaign::latest()->take(3)->get();
 
-        $totalCustomers = Customer::count();
-        $totalProducts = Product::count();
-        $totalCampaigns = Campaign::count();
+        $customerCount = Customer::count();
 
         return view('landing', compact(
             'products',
             'campaigns',
-            'totalCustomers',
-            'totalProducts',
-            'totalCampaigns'
+            'customerCount'
         ));
     }
 }
