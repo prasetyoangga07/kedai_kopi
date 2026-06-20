@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('phone')->unique();
-            $table->string('email')->unique();
             $table->integer('points');
             $table->enum('status', ['regular', 'member', 'vip']);
             $table->timestamps();

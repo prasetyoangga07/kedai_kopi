@@ -14,18 +14,18 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $cust = Customer::query()
-            ->when(
-                request('search'),
-                fn($q) => $q->where(
+            ->with('user')
+            ->whereHas('user', function ($q) {
+                $q->where(
                     'name',
                     'like',
                     '%' . request('search') . '%'
-                ) 
-            )
+                );
+            })
             ->paginate(10)
             ->withQueryString();
         $customer = Customer::all();
-        return view('customers.index', compact('cust', 'customer'));
+        return view('dashboard.customers', compact('cust', 'customer'));
     }
 
     /**
@@ -43,24 +43,23 @@ class CustomerController extends Controller
     {
         try {
             Customer::create([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'points' => $request->points,
-            'status' => $request->status
-        ]);
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'points' => $request->points,
+                'status' => $request->status
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data pelanggan berhasil diperbarui'
-        ]);;
-
+            return response()->json([
+                'success' => true,
+                'message' => 'Data pelanggan berhasil diperbarui'
+            ]);;
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan sistem'
             ]);
-        }   
+        }
     }
 
     /**

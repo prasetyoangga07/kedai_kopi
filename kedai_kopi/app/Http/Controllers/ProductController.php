@@ -17,7 +17,7 @@ class ProductController extends Controller
         $products = Product::with('variant')
             ->paginate(10);
         $totalProducts = Product::all()->count();
-        return view('products.index', compact('products', 'totalProducts'));
+        return view('dashboard.products', compact('products', 'totalProducts'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductController extends Controller
                 'category' => $request->category,
                 'description' => $request->description
             ]);
-            
+
             foreach ($request->variant as $variant) {
                 $product->variant()->create([
                     'sku' => $variant['sku'],
@@ -53,7 +53,6 @@ class ProductController extends Controller
                 'success' => true,
                 'message' => 'Produk berhasil diperbarui'
             ]);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'errors' => true,
@@ -69,7 +68,12 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $product->load('variant');
+
+        return view(
+            'products.show',
+            compact('product')
+        );
     }
 
     /**
@@ -130,5 +134,14 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
+    }
+
+    public function menu()
+    {
+        $products = \App\Models\Product::with('variant')
+            ->orderBy('name')
+            ->get();
+
+        return view('products.index', compact('products'));
     }
 }

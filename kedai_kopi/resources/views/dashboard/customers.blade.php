@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard.layouts.app')
 
 @section('content')
     <div x-data="customerJs()">
@@ -19,11 +19,6 @@
                     Analisis loyalitas, aktivitas, dan segmentasi pelanggan KOPIN.
                 </p>
             </div>
-
-            <button @click="createCust()"
-                class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white px-6 py-4 rounded-2xl shadow-xl hover:scale-105 transition-all cursor-pointer">
-                + Tambah Pelanggan
-            </button>
         </div>
 
         <!-- KPI -->
@@ -166,12 +161,12 @@
                                     <div class="flex items-center gap-4">
                                         <div
                                             class="w-12 h-12 rounded-full bg-[#6F4E37] text-white flex items-center justify-center font-bold">
-                                            {{ $item->initials }}
+                                            {{ $item->user->initials }}
                                         </div>
 
                                         <div>
-                                            <h4 class="font-semibold">{{ $item->name }}</h4>
-                                            <p class="text-sm text-stone-500">{{ $item->email }}</p>
+                                            <h4 class="font-semibold">{{ $item->user->name }}</h4>
+                                            <p class="text-sm text-stone-500">{{ $item->user->email }}</p>
                                         </div>
                                     </div>
                                 </td>
@@ -208,8 +203,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{-- {{ dd($cust) }} --}}
-                {{ $cust->links('vendor.pagination.custom') }}
+                {{ $cust->links('layouts.pagination') }}
             </div>
         </div>
 
@@ -325,4 +319,6 @@
                 </div>
             </div>
         </div>
-    @endsection
+        
+    </div>
+@endsection

@@ -10,7 +10,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\LandingController;
-
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 Route::get('/login', function () {
     return redirect('/login');
@@ -37,7 +38,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
 // ADMIN & BARISTA ROUTES
 // =================================
 
-Route::middleware(['auth', 'role:admin,barista'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     // DASHBOARD
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -57,31 +58,151 @@ Route::middleware(['auth', 'role:admin,barista'])->group(function () {
         Route::delete('/{product}', 'destroy')->name('destroy');
     });
 
-    // CAMPAIGN (Admin only)
-    Route::middleware('role:admin')->prefix('/campaigns')->name('campaigns.')->controller(CampaignController::class)->group(function () {
+    // CAMPAIGN
+    Route::prefix('/campaigns')->name('campaigns.')->controller(CampaignController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
         Route::put('/{campaign}', 'update')->name('update');
         Route::delete('/{campaign}', 'destroy')->name('destroy');
     });
 
-    // APRIORI (Admin only)
-    Route::middleware('role:admin')->prefix('/apriori')->name('apriori.')->controller(AprioriController::class)->group(function () {
+    // APRIORI
+    Route::prefix('/apriori')->name('apriori.')->controller(AprioriController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/generate', 'generate')->name('run');
     });
+
+    // REPORT
+    Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
+
+    Route::prefix('/users')->name('users.')->controller(UserController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+    });
+
+    Route::prefix('/roles')->name('roles.')->controller(RoleController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+    });
 });
 
-Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
+// render full product catalog for customer
 
-Route::post('/campaigns', [CampaignController::class, 'store'])
-    ->name('campaigns.store');
+// CUSTOMER PURCHASE & TRANSACTIONS
+Route::middleware('auth')->group(function () {
 
-Route::put('/campaigns/{campaign}', [CampaignController::class, 'update'])
-    ->name('campaigns.update');
+    // Customer Portal
+    Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])
+        ->name('customer.dashboard');
 
-Route::delete('/campaigns/{campaign}', [CampaignController::class, 'destroy'])
-    ->name('campaigns.destroy');
+    // Purchase menu
+    Route::get('/customer/purchase', [\App\Http\Controllers\CustomerPurchaseController::class, 'index'])
+        ->name('customer.purchase');
+
+    Route::get('/customer/transactions', [\App\Http\Controllers\CustomerPurchaseController::class, 'transactions'])
+        ->name('customer.transactions');
+
+    // Products for customer
+    Route::get('/customer/products', [\App\Http\Controllers\CustomerProductsController::class, 'index'])
+        ->name('customer.products');
+
+    Route::get('/customer/products/{product}', [\App\Http\Controllers\CustomerProductsController::class, 'show'])
+        ->name('customer.products.show');
+
+    // Cart
+    Route::get('/customer/cart', [\App\Http\Controllers\CustomerCartController::class, 'index'])
+        ->name('customer.cart');
+
+    Route::post('/customer/cart/add', [\App\Http\Controllers\CustomerCartController::class, 'add'])
+        ->name('customer.cart.add');
+
+    Route::post('/customer/cart/update', [\App\Http\Controllers\CustomerCartController::class, 'update'])
+        ->name('customer.cart.update');
+
+    Route::post('/customer/cart/remove', [\App\Http\Controllers\CustomerCartController::class, 'remove'])
+        ->name('customer.cart.remove');
+
+    // Checkout
+    Route::post('/customer/checkout', [\App\Http\Controllers\CustomerCartController::class, 'checkout'])
+        ->name('customer.checkout');
+});
+
+//  LANDING PAGE VISIT
+Route::get('/', [LandingController::class, 'index'])
+    ->name('landing');
+
+
+Route::get('/promo', [CampaignController::class, 'landing'])
+    ->name('promo.index');
+
+Route::get('/promo/{campaign}', [CampaignController::class, 'showLanding'])
+    ->name('promo.show');
+
+Route::get('/menu', [ProductController::class, 'menu'])
+    ->name('products.menu');
+
+Route::get('/menu/{product}', [ProductController::class, 'show'])
+    ->name('products.show');
+
+// CUSTOMER DASHBOARD
+Route::middleware('auth')->group(function () {
+
+    Route::get(
+        '/customer/dashboard',
+        [CustomerDashboardController::class, 'index']
+    )->name('customer.dashboard');
+});
+
+// render full product catalog for customer
+
+// CUSTOMER PURCHASE & TRANSACTIONS
+Route::middleware('auth')->group(function () {
+    // Purchase menu
+    Route::get('/customer/purchase', [\App\Http\Controllers\CustomerPurchaseController::class, 'index'])
+        ->name('customer.purchase');
+
+    Route::get('/customer/transactions', [\App\Http\Controllers\CustomerPurchaseController::class, 'transactions'])
+        ->name('customer.transactions');
+
+    // Products for customer
+    Route::get('/customer/products', [\App\Http\Controllers\CustomerProductsController::class, 'index'])
+        ->name('customer.products');
+
+    Route::get('/customer/products/{product}', [\App\Http\Controllers\CustomerProductsController::class, 'show'])
+        ->name('customer.products.show');
+
+    // Cart
+    Route::get('/customer/cart', [\App\Http\Controllers\CustomerCartController::class, 'index'])
+        ->name('customer.cart');
+
+    Route::post('/customer/cart/add', [\App\Http\Controllers\CustomerCartController::class, 'add'])
+        ->name('customer.cart.add');
+
+    Route::post('/customer/cart/update', [\App\Http\Controllers\CustomerCartController::class, 'update'])
+        ->name('customer.cart.update');
+
+    Route::post('/customer/cart/remove', [\App\Http\Controllers\CustomerCartController::class, 'remove'])
+        ->name('customer.cart.remove');
+
+    // Checkout
+    Route::post('/customer/checkout', [\App\Http\Controllers\CustomerCartController::class, 'checkout'])
+        ->name('customer.checkout');
+});
+
+//  LANDING PAGE VISIT
+Route::get('/', [LandingController::class, 'index'])
+    ->name('landing');
+
+
+Route::get('/promo', [CampaignController::class, 'landing'])
+    ->name('promo.index');
+
+Route::get('/promo/{campaign}', [CampaignController::class, 'showLanding'])
+    ->name('promo.show');
+
+Route::get('/menu', [ProductController::class, 'menu'])
+    ->name('products.menu');
+
+Route::get('/menu/{product}', [ProductController::class, 'show'])
+    ->name('products.show');
 
 // CUSTOMER DASHBOARD
 Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');

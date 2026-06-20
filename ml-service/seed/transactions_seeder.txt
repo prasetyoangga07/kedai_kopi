@@ -17,4 +17,4 @@ IGNORE 1 LINES
 )
 SET 
     in_or_out = NULLIF(TRIM(@in_or_out), ''),
-    updated_at = NULLIF(@updated_at, 'NULL');
+    updated_at = NULLIF(@updated_at, '');

@@ -5,12 +5,11 @@ OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (
-    name,
+    user_id,
     phone,
-    email,
     points,
     status,
     created_at,
     @updated_at
 )
-SET updated_at = NULLIF(@updated_at, 'NULL');
+SET updated_at = NULLIF(@updated_at, '');

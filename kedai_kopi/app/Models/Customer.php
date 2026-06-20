@@ -16,10 +16,8 @@ class Customer extends Model
         'status',
     ];
 
-    public function getInitialsAttribute(): string
+    public function user()
     {
-        return collect(preg_split('/\s+/', trim($this->name)))
-            ->map(fn($word) => strtoupper(substr($word, 0, 1)))
-            ->join('');
+        return $this->belongsTo(User::class);
     }
 }
