@@ -24,6 +24,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
+            'phone' => ['required', 'string', 'unique:customers,phone', 'regex:/^(\+62|62|0)8[1-9][0-9]{7,11}$/'],
             'password' => ['required', 'min:6', 'confirmed'],
             'password_confirmation' => ['required'],
         ];
@@ -39,9 +40,16 @@ class RegisterRequest extends FormRequest
             'name.string' => 'Nama harus berupa teks',
             'name.min' => 'Nama minimal 3 karakter',
             'name.max' => 'Nama maksimal 255 karakter',
+
             'email.required' => 'Email wajib diisi',
             'email.email' => 'Format email tidak valid',
             'email.unique' => 'Email sudah terdaftar',
+
+            'phone.required' => 'Nomor telepon wajib diisi',
+            'phone.string' => 'Harap masukkan nomor telepon valid',
+            'phone.unique' => 'Nomor telepon sudah terdaftar',
+            'phone.regex' => 'Periksa kembali format nomor telepon',
+
             'password.required' => 'Password wajib diisi',
             'password.min' => 'Password minimal 6 karakter',
             'password.confirmed' => 'Konfirmasi password tidak cocok',

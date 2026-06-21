@@ -15,7 +15,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body x-data="layoutJs(@js(Route::currentRouteName()))" class="bg-[#F8F3ED] overflow-x-hidden">
+<body x-data="dashboardJs(@js(Route::currentRouteName()))" class="bg-[#F8F3ED] overflow-x-hidden">
 
     @include('dashboard.layouts.sidebar')
 
@@ -105,11 +105,6 @@
 
         </main>
 
-    </div>
-
-    <!-- MODAL BACKDROP -->
-    <div x-show="customerModal || customerDetail || customerEdit || customerDelete || productModal || campaignModal || reportModal || aprioriModal"
-        x-transition.opacity class="fixed inset-0 z-9998 bg-[#2B2118]/25">
     </div>
 
     @yield('modals')

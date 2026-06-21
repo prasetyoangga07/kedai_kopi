@@ -37,7 +37,25 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $role = Role::create([
+                'name' => $request->name,
+            ]);
+
+            $permissions = Permission::whereIn('id', $request->permissions)->get();
+            $role->syncPermissions($request->permissions);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Role baru berhasil dibuat'
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -61,7 +79,27 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $role = Role::findOrFail($id);
+
+            $role->update([
+                'name' => $request->name,
+            ]);
+
+            $permissions = Permission::whereIn('id', $request->permissions)->get();
+            $role->syncPermissions($permissions);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Role berhasil diperbarui'
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -69,6 +107,13 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            Role::findOrFail($id)->delete();
+
+            return redirect()->back()->with('success', 'Akun berhasil dihapus');
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 }

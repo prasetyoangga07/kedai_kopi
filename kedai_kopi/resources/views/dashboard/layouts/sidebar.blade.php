@@ -2,7 +2,7 @@
     class="fixed left-0 top-0 h-screen bg-[#2B2118] text-white shadow-2xl transition-all duration-300 flex flex-col z-50">
 
     {{-- Header / Logo --}}
-    <div class="p-5 border-b border-stone-800 flex-shrink-0">
+    <div class="p-5 border-b border-stone-800 shrink-0">
         <div :class="sidebarOpen ? 'justify-start' : 'justify-center'" class="flex items-center gap-3">
             <div class="w-12 h-12 rounded-xl bg-[#FAF3E0] border border-[#DDB892] overflow-hidden shadow-lg shrink-0">
                 <img src="{{ asset('img/kopin2.png') }}" alt="KOPIN" class="w-full h-full object-cover">
@@ -69,63 +69,67 @@
         </div>
 
         {{-- REPORT GROUP --}}
-        <div x-show="sidebarOpen" x-transition>
-            <button @click="menu.report = !menu.report"
-                class="flex items-center w-full px-3 py-2 rounded-xl text-stone-400 hover:text-stone-200 transition-colors duration-200 cursor-pointer">
-                <span class="flex-1 text-left text-xs font-semibold uppercase tracking-wider">Report</span>
-                <x-heroicon-o-chevron-right
-                    class="w-4 h-4 transition-transform duration-200"
-                    ::class="{ 'rotate-90': menu.report }" />
-            </button>
+        @can(['apriori.view', 'report.view'])
+            <div x-show="sidebarOpen" x-transition>
+                <button @click="menu.report = !menu.report"
+                    class="flex items-center w-full px-3 py-2 rounded-xl text-stone-400 hover:text-stone-200 transition-colors duration-200 cursor-pointer">
+                    <span class="flex-1 text-left text-xs font-semibold uppercase tracking-wider">Report</span>
+                    <x-heroicon-o-chevron-right
+                        class="w-4 h-4 transition-transform duration-200"
+                        ::class="{ 'rotate-90': menu.report }" />
+                </button>
 
-            <div x-show="menu.report" x-transition class="pl-3 space-y-1 mt-1">
-                <a href="{{ route('apriori.index') }}"
-                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
-                    {{ request()->is('apriori') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
-                    <x-heroicon-o-cube-transparent class="w-5 h-5 shrink-0" />
-                    <span class="text-sm">Apriori</span>
-                </a>
+                <div x-show="menu.report" x-transition class="pl-3 space-y-1 mt-1">
+                    <a href="{{ route('apriori.index') }}"
+                        class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+                        {{ request()->is('apriori') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
+                        <x-heroicon-o-cube-transparent class="w-5 h-5 shrink-0" />
+                        <span class="text-sm">Apriori</span>
+                    </a>
 
-                <a href="{{ route('report.index') }}"
-                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
-                    {{ request()->is('reports') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
-                    <x-heroicon-o-clipboard-document-list class="w-5 h-5 shrink-0" />
-                    <span class="text-sm">Laporan</span>
-                </a>
+                    <a href="{{ route('reports.index') }}"
+                        class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+                        {{ request()->is('reports') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
+                        <x-heroicon-o-clipboard-document-list class="w-5 h-5 shrink-0" />
+                        <span class="text-sm">Laporan</span>
+                    </a>
+                </div>
             </div>
-        </div>
+        @endcan
 
         {{-- CREDENTIAL GROUP --}}
-        <div x-show="sidebarOpen" x-transition>
-            <button @click="menu.credential = !menu.credential"
-                class="flex items-center w-full px-3 py-2 rounded-xl text-stone-400 hover:text-stone-200 transition-colors duration-200 cursor-pointer">
-                <span class="flex-1 text-left text-xs font-semibold uppercase tracking-wider">Credential</span>
-                <x-heroicon-o-chevron-right
-                    class="w-4 h-4 transition-transform duration-200"
-                    ::class="{ 'rotate-90': menu.credential }" />
-            </button>
+        @role('super admin')
+            <div x-show="sidebarOpen" x-transition>
+                <button @click="menu.credential = !menu.credential"
+                    class="flex items-center w-full px-3 py-2 rounded-xl text-stone-400 hover:text-stone-200 transition-colors duration-200 cursor-pointer">
+                    <span class="flex-1 text-left text-xs font-semibold uppercase tracking-wider">Credential</span>
+                    <x-heroicon-o-chevron-right
+                        class="w-4 h-4 transition-transform duration-200"
+                        ::class="{ 'rotate-90': menu.credential }" />
+                </button>
 
-            <div x-show="menu.credential" x-transition class="pl-3 space-y-1 mt-1">
-                <a href="{{ route('users.index') }}"
-                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
-                    {{ request()->is('users') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
-                    <x-heroicon-o-user-circle class="w-5 h-5 shrink-0" />
-                    <span class="text-sm">User</span>
-                </a>
+                <div x-show="menu.credential" x-transition class="pl-3 space-y-1 mt-1">
+                    <a href="{{ route('users.index') }}"
+                        class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+                        {{ request()->is('users') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
+                        <x-heroicon-o-user-circle class="w-5 h-5 shrink-0" />
+                        <span class="text-sm">User</span>
+                    </a>
 
-                <a href="{{ route('roles.index') }}"
-                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
-                    {{ request()->is('roles') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
-                    <x-heroicon-o-shield-check class="w-5 h-5 shrink-0" />
-                    <span class="text-sm">Roles</span>
-                </a>
+                    <a href="{{ route('roles.index') }}"
+                        class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+                        {{ request()->is('roles') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
+                        <x-heroicon-o-shield-check class="w-5 h-5 shrink-0" />
+                        <span class="text-sm">Roles</span>
+                    </a>
+                </div>
             </div>
-        </div>
+        @endrole
 
     </nav>
 
     {{-- Footer / User --}}
-    <div class="p-4 border-t border-stone-800 flex-shrink-0">
+    <div class="p-4 border-t border-stone-800 shrink-0">
         <div :class="sidebarOpen ? 'justify-start' : 'justify-center'" class="flex items-center mb-3">
             <div class="w-9 h-9 rounded-full bg-[#A67B5B] flex items-center justify-center font-bold text-sm shrink-0">
                 A
@@ -136,12 +140,15 @@
             </div>
         </div>
 
-        <a href="/login"
-            :class="sidebarOpen ? 'w-full px-4 gap-2' : 'w-10 mx-auto'"
-            class="bg-[#8B5E3C] hover:bg-[#6F4E37] h-10 rounded-2xl text-white transition-all duration-200 flex items-center justify-center">
-            <x-heroicon-o-arrow-right-start-on-rectangle class="w-5 h-5 shrink-0" />
-            <span x-show="sidebarOpen" x-transition class="text-sm font-medium">Logout</span>
-        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="button" @click.prevent="confirmLogout"
+                :class="sidebarOpen ? 'w-full px-4 gap-2' : 'w-10 mx-auto'"
+                class="bg-[#8B5E3C] hover:bg-[#6F4E37] h-10 rounded-2xl text-white transition-all duration-200 flex items-center justify-center cursor-pointer">
+                <x-heroicon-o-arrow-left-on-rectangle class="w-5 h-5" />
+                <span x-show="sidebarOpen" x-transition class="text-sm font-medium">Logout</span>
+            </button>
+        </form>
     </div>
 
 </aside>

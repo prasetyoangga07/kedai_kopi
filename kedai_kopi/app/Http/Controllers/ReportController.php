@@ -11,6 +11,6 @@ class ReportController extends Controller
     public function index()
     {
         $data = $this->report_service->getData();
-        return view('reports.index', $data);
+        return view('dashboard.reports', $data);
     }
 }

@@ -28,7 +28,7 @@ class CampaignController extends Controller
             1
         );
 
-        return view('campaigns.index', compact(
+        return view('dashboard.campaigns', compact(
             'campaigns',
             'activeCampaigns',
             'totalRevenue',

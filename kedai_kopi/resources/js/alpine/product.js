@@ -106,8 +106,7 @@ export default () => ({
                     'Accept': 'application/json'
                 },
                 body: formData
-            }
-            );
+            });
 
             const result = await response.json();
 

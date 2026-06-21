@@ -1,5 +1,5 @@
 import "./bootstrap";
-import layout from "./alpine/layout";
+import dashboard from "./alpine/dashboard";
 import product from "./alpine/product";
 import toast from "./alpine/toast";
 import customer from "./alpine/customer";
@@ -15,7 +15,7 @@ window.Swal = Swal;
 
 window.Alpine = Alpine;
 
-Alpine.data("layoutJs", layout);
+Alpine.data("dashboardJs", dashboard);
 Alpine.data("toast", toast);
 Alpine.data("productJs", product);
 Alpine.data("customerJs", customer);

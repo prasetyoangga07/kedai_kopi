@@ -174,7 +174,9 @@
                                     type="email"
                                     required
                                     value="{{ old('email') }}"
-                                    class="w-full rounded-2xl border @error('email') border-red-500 @else border-stone-200 @enderror pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
+                                    class="w-full rounded-2xl border 
+                                    @error('email') border-red-500 @else border-stone-200 @enderror 
+                                    pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
 
                             </div>
 
@@ -196,7 +198,9 @@
                                     name="password"
                                     type="password"
                                     required
-                                    class="w-full rounded-2xl border @error('password') border-red-500 @else border-stone-200 @enderror pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
+                                    class="w-full rounded-2xl border
+                                    @error('password') border-red-500 @else border-stone-200 @enderror 
+                                    pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
                             </div>
 
                             @error('password')
@@ -288,7 +292,7 @@
         window.addEventListener('load', () => {
             Swal.fire({
                 icon: 'error',
-                title: 'Login Gagal',
+                title: 'Gagal',
                 text: '{{ session("error") }}',
                 confirmButtonColor: '#A67B5B'
             })
@@ -301,7 +305,7 @@
         window.addEventListener('load', () => {
             Swal.fire({
                 icon: 'success',
-                title: 'Login Berhasil',
+                title: 'Berhasil',
                 text: '{{ session("success") }}',
                 confirmButtonColor: '#A67B5B'
             })

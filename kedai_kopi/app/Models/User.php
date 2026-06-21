@@ -52,7 +52,7 @@ class User extends Authenticatable
     {
         return match (true) {
 
-            $this->hasRole('admin')
+            $this->hasPermissionTo('admin.panel')
                 => route('dashboard.index'),
 
             default

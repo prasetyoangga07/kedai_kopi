@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard.layouts.app')
 
 @section('content')
     <div x-data="rolesJs">
@@ -256,7 +256,6 @@
             </div>
         </div>
 
-
         <!-- DELETE ROLE MODAL -->
         <div x-show="showDelete" x-transition.opacity style="display:none"
             class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-6">
@@ -283,7 +282,7 @@
 
                 <!-- FOOTER -->
                 <div class="border-t border-[#EFE3D5] p-6 flex gap-4">
-                    <button @click="showDelete = false"
+                    <button @click="showDelete=false"
                         class="flex-1 py-4 rounded-2xl border border-[#DDB892] hover:bg-[#FAF3E0] transition cursor-pointer">
                         Batal
                     </button>
@@ -296,9 +295,8 @@
                         </button>
                     </form>
                 </div>
-
+                
             </div>
         </div>
-
     </div>
 @endsection
