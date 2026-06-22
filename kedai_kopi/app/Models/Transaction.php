@@ -17,4 +17,9 @@ class Transaction extends Model
         'in_or_out',
         'payment_status',
     ];
+
+    public function details()
+    {
+        return $this->hasMany(TransactionDetail::class);
+    }
 }

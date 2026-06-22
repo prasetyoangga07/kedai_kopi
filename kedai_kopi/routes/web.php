@@ -10,6 +10,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\LoyaltyLevelController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
@@ -61,6 +62,14 @@ Route::middleware(['auth', 'permission:admin.panel'])->group(function () {
         Route::post('/', 'store')->name('store')->middleware('permission:campaign.create');
         Route::put('/{campaign}', 'update')->name('update')->middleware('permission:campaign.update');
         Route::delete('/{campaign}', 'destroy')->name('destroy')->middleware('permission:campaign.delete');
+    });
+
+    // LOYALTY
+    Route::prefix('/loyalty')->name('loyalty.')->controller(LoyaltyLevelController::class)->group(function () {
+        Route::get('/', 'index')->name('index')->middleware('permission:campaign.view');
+        Route::post('/', 'store')->name('store')->middleware('permission:campaign.create');
+        Route::put('/{loyalty}', 'update')->name('update')->middleware('permission:campaign.update');
+        Route::delete('/{loyalty}', 'destroy')->name('destroy')->middleware('permission:campaign.delete');
     });
 
     // APRIORI

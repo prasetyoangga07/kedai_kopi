@@ -65,6 +65,13 @@
                     <x-heroicon-o-megaphone class="w-5 h-5 shrink-0" />
                     <span class="text-sm">Campaign</span>
                 </a>
+
+                <a href="{{ route('loyalty.index') }}"
+                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+                    {{ request()->is('loyalty') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
+                    <x-heroicon-o-trophy class="w-5 h-5 shrink-0" />
+                    <span class="text-sm">Loyalty Level</span>
+                </a>
             </div>
         </div>
 

@@ -1,10 +1,13 @@
 import "./bootstrap";
-import dashboard from "./alpine/dashboard";
-import product from "./alpine/product";
-import toast from "./alpine/toast";
-import customer from "./alpine/customer";
-import user from "./alpine/user";
-import role from "./alpine/role";
+import dashboard from "./admin/dashboard";
+import product from "./admin/product";
+import toast from "./admin/toast";
+import customer from "./admin/customer";
+import user from "./admin/user";
+import role from "./admin/role";
+import loyalty from "./admin/loyalty";
+
+import transaction from "./customer/transaction";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -21,6 +24,9 @@ Alpine.data("productJs", product);
 Alpine.data("customerJs", customer);
 Alpine.data("usersJs", user);
 Alpine.data("rolesJs", role);
+Alpine.data("loyaltyJs", loyalty);
+
+Alpine.data("transactionJs", transaction);
 
 Alpine.start();
 AOS.init();

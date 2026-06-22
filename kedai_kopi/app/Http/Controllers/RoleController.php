@@ -86,6 +86,7 @@ class RoleController extends Controller
                 'name' => $request->name,
             ]);
 
+            // ngambil nama permission karena dari request hasilnya id
             $permissions = Permission::whereIn('id', $request->permissions)->get();
             $role->syncPermissions($permissions);
 

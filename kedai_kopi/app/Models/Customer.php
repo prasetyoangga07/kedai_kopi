@@ -19,4 +19,15 @@ class Customer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getLoyaltyAttribute()
+    {
+        return LoyaltyLevel::query()
+            ->where('min_points', '<=', $this->points)
+            ->where(function ($q) {
+                $q->whereNull('max_points')
+                ->orWhere('max_points', '>=', $this->points);
+            })
+            ->first();
+    }
 }

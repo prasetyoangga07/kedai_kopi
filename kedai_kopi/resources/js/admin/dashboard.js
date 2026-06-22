@@ -10,7 +10,8 @@ export default (currentRoute) => ({
         const groups = {
             master: [
                 'products.',
-                'campaigns.'
+                'campaigns.',
+                'loyalty.'
             ],
 
             credential: [

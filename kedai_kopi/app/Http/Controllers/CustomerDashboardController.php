@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\CustomerPortalService;
 use Illuminate\Http\Request;
 
 class CustomerDashboardController extends Controller
 {
+    public function __construct(private CustomerPortalService $customer_portal_service) {}
+
     public function index(Request $request)
     {
+        $data = $this->customer_portal_service->getData();
+
         $q = trim((string) $request->query('q', ''));
         $category = $request->query('category', '');
 
@@ -28,6 +33,6 @@ class CustomerDashboardController extends Controller
 
         $products = $productsQuery->get();
 
-        return view('customer.dashboard', compact('products'));
+        return view('customer.dashboard', compact('products', 'data'));
     }
 }
