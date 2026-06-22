@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Customer;
 
 class AuthController extends Controller
 {
@@ -56,18 +57,24 @@ class AuthController extends Controller
         try {
             $validated = $request->validated();
 
-            // Create new user with role 'user' (customer)
             $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
             ]);
 
+            Customer::create([
+                'user_id' => $user->id,
+                'phone' => $validated['phone'],
+                'points' => 0,
+                'status' => 'regular'
+            ]);
+
             return redirect('/login')
                 ->with('success', 'Akun berhasil dibuat! Silakan login dengan email dan password Anda.');
         } catch (\Exception $e) {
             return back()->withInput($request->only('name', 'email'))
-                ->with('error', 'Terjadi kesalahan saat membuat akun. Silakan coba lagi.');
+                ->with('error', $e->getMessage());
         }
     }
 

@@ -27,6 +27,6 @@ class AprioriController extends Controller
     public function index()
     {
         $data = $this->apriori_service->getData();
-        return view('apriori.index', $data);
+        return view('dashboard.apriori', $data);
     }
 }

@@ -35,10 +35,7 @@ export default () => ({
     },
 
     async submit() {
-        const url = this.isEdit
-            ? `/roles/${this.role.id}`
-            : `/roles`;
-
+        const url = this.isEdit ? `/roles/${this.role.id}` : `/roles`;
         const method = this.isEdit ? 'PUT' : 'POST';
 
         const res = await fetch(url, {
@@ -54,9 +51,22 @@ export default () => ({
 
         if (!res.ok) {
             this.errors = data.errors ?? {};
-            return;
+
+            Swal.fire({
+                icon: "error",
+                title: "Validasi Gagal",
+                text: errors.message,
+            });
+
+            console.error(errors);
         }
 
-        window.location.reload();
+        await Swal.fire({
+            icon: "success",
+            title: "Berhasil",
+            text: data.message,
+        });
+
+        location.reload();
     },
 });

@@ -169,161 +169,149 @@
                             @enderror
                         </div>
 
-                        <!-- EMAIL -->
-
-                        <div>
-
-                            <label
-                                class="text-sm font-semibold text-stone-600">
-
-                                Email
-
-                            </label>
-
-                            <div class="relative mt-2">
-
-                                <input
-                                    name="email"
-                                    type="email"
-                                    required
-                                    value="{{ old('email') }}"
-                                    placeholder="nama@email.com"
-                                    class="w-full rounded-2xl border @error('email') border-red-500 @else border-stone-200 @enderror pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
-
+                        <div class="flex gap-2">
+                            <!-- EMAIL -->
+                            <div>
+                                <label class="text-sm font-semibold text-stone-600">
+                                    Email
+                                </label>
+    
+                                <div class="relative mt-2">
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        required
+                                        value="{{ old('email') }}"
+                                        placeholder="nama@email.com"
+                                        class="w-full rounded-2xl border 
+                                        @error('email') border-red-500 @else border-stone-200 @enderror 
+                                        pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]"
+                                    >
+                                </div>
+    
+                                @error('email')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
-
-                            @error('email')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-
+    
+                            <!-- PHONE -->
+                            <div>
+                                <label class="text-sm font-semibold text-stone-600">
+                                    Phone
+                                </label>
+    
+                                <div class="relative mt-2">
+                                    <input
+                                        name="phone"
+                                        type="string"
+                                        required
+                                        value="{{ old('phone') }}"
+                                        placeholder="+62 xxxx xxxx"
+                                        class="w-full rounded-2xl border 
+                                        @error('phone') border-red-500 @else border-stone-200 @enderror 
+                                        pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]"
+                                    >
+                                </div>
+    
+                                @error('email')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
                         <!-- PASSWORD -->
-
                         <div>
-
-                            <label
-                                class="text-sm font-semibold text-stone-600">
-
+                            <label class="text-sm font-semibold text-stone-600">
                                 Password
-
                             </label>
 
                             <div class="relative mt-2">
-
                                 <input
                                     name="password"
                                     type="password"
                                     required
                                     placeholder="Minimal 6 karakter"
-                                    class="w-full rounded-2xl border @error('password') border-red-500 @else border-stone-200 @enderror pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
-
+                                    class="w-full rounded-2xl border 
+                                    @error('password') border-red-500 @else border-stone-200 @enderror 
+                                    pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]"
+                                >
                             </div>
 
                             @error('password')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
-
                         </div>
 
                         <!-- PASSWORD CONFIRMATION -->
-
                         <div>
-
-                            <label
-                                class="text-sm font-semibold text-stone-600">
-
+                            <label class="text-sm font-semibold text-stone-600">
                                 Konfirmasi Password
-
                             </label>
 
                             <div class="relative mt-2">
-
                                 <input
                                     name="password_confirmation"
                                     type="password"
                                     required
                                     placeholder="Masukkan ulang password"
-                                    class="w-full rounded-2xl border @error('password_confirmation') border-red-500 @else border-stone-200 @enderror pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]">
-
+                                    class="w-full rounded-2xl border 
+                                    @error('password_confirmation') border-red-500 @else border-stone-200 @enderror 
+                                    pl-5 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#A67B5B]"
+                                >
                             </div>
 
                             @error('password_confirmation')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
-
                         </div>
 
                         <!-- TERMS -->
-
-                        <div
-                            class="flex items-start gap-2 text-sm">
-
+                        <div class="flex items-start gap-2 text-sm">
                             <input type="checkbox" required class="mt-1">
-
-                            <label
-                                class="text-stone-600">
-
-                                Saya setuju dengan <a href="#" class="text-[#6F4E37] font-semibold hover:underline">Syarat & Ketentuan</a> dan <a href="#" class="text-[#6F4E37] font-semibold hover:underline">Kebijakan Privasi</a>
-
+                            <label class="text-stone-600">
+                                Saya setuju dengan 
+                                <a href="#" class="text-[#6F4E37] font-semibold hover:underline">
+                                    Syarat & Ketentuan
+                                </a> 
+                                dan 
+                                <a href="#" class="text-[#6F4E37] font-semibold hover:underline">
+                                    Kebijakan Privasi
+                                </a>
                             </label>
-
                         </div>
 
                         <!-- BUTTON -->
-
                         <button type="submit"
                             class="w-full py-4 rounded-2xl
-                bg-linear-to-r
-                from-[#6F4E37]
-                to-[#A67B5B]
-                text-white
-                font-bold
-                text-lg
-                hover:-translate-y-1
-                hover:shadow-xl
-                transition duration-300">
+                                bg-linear-to-r from-[#6F4E37] to-[#A67B5B]
+                                text-white font-bold text-lg
+                                hover:-translate-y-1 hover:shadow-xl
+                                transition duration-300 
+                                cursor-pointer">
 
                             Buat Akun
-
                         </button>
-
                     </form>
 
                     <!-- LOGIN LINK -->
-
-                    <div
-                        class="text-center mt-8">
-
-                        <p
-                            class="text-stone-600">
-
-                            Sudah punya akun? <a href="{{ route('login') }}" class="text-[#6F4E37] font-semibold hover:underline">Login di sini</a>
-
+                    <div class="text-center mt-8">
+                        <p class="text-stone-600">
+                            Sudah punya akun?
+                            <a href="{{ route('login') }}" class="text-[#6F4E37] font-semibold hover:underline">
+                                Login di sini
+                            </a>
                         </p>
-
                     </div>
 
                     <!-- FOOTER -->
-
-                    <div
-                        class="text-center mt-6">
-
-                        <p
-                            class="text-xs text-stone-400">
-
+                    <div class="text-center mt-6">
+                        <p class="text-xs text-stone-400">
                             KOPIN CRM • Coffee Business Intelligence
-
                         </p>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     @if(session('error'))

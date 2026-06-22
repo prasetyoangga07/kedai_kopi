@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard.layouts.app')
 
 @section('content')
     <div x-data="reportJs">
@@ -14,19 +14,9 @@
                 </p>
             </div>
 
-            {{-- <button class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white px-6 py-4 rounded-2xl shadow-xl">
+            <button class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white px-6 py-4 rounded-2xl shadow-xl">
                 Export PDF
-            </button> --}}
-
-            <form action="{{ route('report.import') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <input type="file" @change="uploadCsv($event)" accept=".csv">
-
-                <button type="submit"
-                    class="bg-linear-to-r from-[#6F4E37] to-[#A67B5B] text-white px-6 py-4 rounded-2xl shadow-xl cursor-pointer">
-                    Export PDF
-                </button>
-            </form>
+            </button>
         </div>
 
         <!-- KPI -->

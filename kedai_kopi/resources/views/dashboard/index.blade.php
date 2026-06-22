@@ -2,10 +2,7 @@
 
 @section('content')
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
-
-
         <div>
-
             <h1 class="text-4xl font-bold text-stone-800">
                 Dashboard Owner
             </h1>
@@ -13,37 +10,26 @@
             <p class="text-stone-500 mt-2">
                 Pantau performa pelanggan, transaksi, campaign, dan rekomendasi Apriori.
             </p>
-
         </div>
 
         <div class="mt-4 lg:mt-0">
-
             <button @click="reportModal=true"
                 class="group
-        flex items-center gap-3
-        bg-linear-to-r
-        from-[#6F4E37]
-        to-[#A67B5B]
-        hover:from-[#5A3D2A]
-        hover:to-[#8B6E54]
-        text-white
-        px-6 py-3
-        rounded-2xl
-        shadow-lg
-        hover:shadow-xl
-        transition-all duration-300">
+                    flex items-center gap-3 px-6 py-3
+                    bg-linear-to-r from-[#6F4E37] to-[#A67B5B]
+                    hover:from-[#5A3D2A] hover:to-[#8B6E54] hover:shadow-xl
+                    text-white
+                    rounded-2xl
+                    shadow-lg
+                    transition-all duration-300">
 
                 <x-heroicon-o-plus class="h-7 w-7" />
 
                 <span class="font-semibold">
                     Generate Laporan
                 </span>
-
             </button>
-
         </div>
-
-
     </div>
 
 
@@ -437,12 +423,12 @@
                         <div class="flex items-center gap-4">
                             <div
                                 class="w-12 h-12 rounded-full bg-[#6F4E37] text-white flex items-center justify-center font-bold">
-                                {{ $item->initials }}
+                                {{ $item->user->initials }}
                             </div>
 
                             <div>
                                 <h4 class="font-semibold">
-                                    {{ $item->name }}
+                                    {{ $item->user->name }}
                                 </h4>
                                 <p class="text-sm text-stone-500">
                                     {{ $item->status }}
