@@ -21,7 +21,7 @@ class CustomerPurchaseController extends Controller
         $transactions = Transaction::with(
             'details.variant.product'
         )
-        ->where('cust_id', $customer->id)
+        ->where('customer_id', $customer->id)
         ->orderByDesc('created_at')
         ->paginate(10)
         // mapping data agar lebih rapih di Js

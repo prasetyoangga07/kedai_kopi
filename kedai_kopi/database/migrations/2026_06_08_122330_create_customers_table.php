@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('phone')->unique();
-            $table->integer('points');
-            $table->enum('status', ['regular', 'member', 'vip']);
+            $table->string('status');
             $table->timestamps();
         });
     }

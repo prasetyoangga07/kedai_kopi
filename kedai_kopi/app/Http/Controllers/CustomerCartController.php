@@ -101,12 +101,13 @@ class CustomerCartController extends Controller
         $customer = Customer::where('user_id', Auth::id())->first();
 
         $transaction = Transaction::create([
-            'cust_id' => $customer->id,
+            'customer_id' => $customer->id,
             'subtotal' => $totals['subtotal'],
             'discount' => $totals['discount'],
             'tax' => $totals['tax'],
             'grand_total' => $totals['grand_total'],
             'in_or_out' => 'in',
+            'points' => $totals['points'],
             'payment_status' => false,
             'payment_method' => $paymentMethod,
         ]);
@@ -175,16 +176,20 @@ class CustomerCartController extends Controller
             $subtotal += $item['line_total'];
         }
 
-        // simple demo: discount/tax = 0. You can adjust later.
+        // simple demo: discount/tax = 0.
         $discount = 0.0;
         $tax = 0.0;
         $grandTotal = $subtotal - $discount + $tax;
+        $points = floor($grandTotal/10000);
+
+        // dd($points);
 
         return [
             'subtotal' => $subtotal,
             'discount' => $discount,
             'tax' => $tax,
             'grand_total' => $grandTotal,
+            'points' => $points
         ];
     }
 }

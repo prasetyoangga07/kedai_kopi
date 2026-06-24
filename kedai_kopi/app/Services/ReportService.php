@@ -19,7 +19,7 @@ class ReportService
         $currentMonthRevenue = $this->getRevenue($this->getLast()->year, $this->getLast()->month);
         $previousMonthRevenue = $this->getRevenue($this->getLast()->year, ($this->getLast()->month - 1));
         $deviation = $currentMonthRevenue - $previousMonthRevenue;
-        $growth = number_format($deviation / $currentMonthRevenue * 100, 2);
+        $growth = number_format(abs($deviation / $currentMonthRevenue * 100), 2);
         $loyalCust = $customer->where('status', 'vip');
         $topCust = $customer->sortByDesc('points')->take(5);
 

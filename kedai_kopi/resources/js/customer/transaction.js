@@ -1,11 +1,11 @@
 export default () => ({
-    filter: "all",
+    detailModal: false,
+    tx: {},
 
-    showTransaction(status) {
-        if (this.filter === "all") {
-            return true;
-        }
+    openDetail(tx) {
+        this.tx = tx;
+        this.detailModal = true;
 
-        return status === this.filter;
-    },
+        console.log(this.tx);
+    }
 });

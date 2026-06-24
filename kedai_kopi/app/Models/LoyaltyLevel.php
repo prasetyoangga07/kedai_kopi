@@ -17,18 +17,15 @@ class LoyaltyLevel extends Model
         'text_color',
     ];
 
+    // hitung jumlah customer pada level tertentu
     public function getCustomerCountAttribute()
     {
         return Customer::query()
-            ->where('points', '>=', $this->min_points)
-            ->when(
-                $this->max_points,
-                fn($q) => $q->where(
-                    'points',
-                    '<=',
-                    $this->max_points
-                )
-            )
+            ->withSum('transaction', 'points')->get()
+            ->filter(function ($customer) {
+                $points = $customer->transaction_sum_points ?? 0;
+                return $points >= $this->min_points && $points <= $this->max_points;
+            })
             ->count();
     }
 }

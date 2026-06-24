@@ -5,13 +5,15 @@ OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (
-    cust_id,
+    customer_id,
     subtotal,
     discount,
     tax,
     grand_total,
-    @in_or_out,
+    points,
+    payment_method,
     payment_status,
+    @in_or_out,
     created_at,
     @updated_at
 )
