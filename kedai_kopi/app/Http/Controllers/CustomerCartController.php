@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductVariant;
-use App\Models\Transaction;
-use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
+use App\Models\Customer;
+use App\Models\ProductVariant;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
 
 class CustomerCartController extends Controller
 {
@@ -79,10 +80,16 @@ class CustomerCartController extends Controller
 
     public function checkout(Request $request)
     {
+
+        $request->validate([
+            'payment_method' => 'required|string'
+        ]);
+
         $cart = session()->get(self::SESSION_KEY, []);
 
         // payment method is currently UI-only; we keep it for future use
         $paymentGroup = $request->input('payment_group');
+        $paymentMethod = $request->input('payment_method');
 
         if (empty($cart)) {
             return redirect()->route('customer.cart')->with('error', 'Keranjang kosong.');
@@ -91,14 +98,17 @@ class CustomerCartController extends Controller
         $items = $this->resolveCartItems($cart);
         $totals = $this->calculateTotals($items);
 
+        $customer = Customer::where('user_id', Auth::id())->first();
+
         $transaction = Transaction::create([
-            'cust_id' => (string) (Auth::id() ?? '0'),
+            'cust_id' => $customer->id,
             'subtotal' => $totals['subtotal'],
             'discount' => $totals['discount'],
             'tax' => $totals['tax'],
             'grand_total' => $totals['grand_total'],
             'in_or_out' => 'in',
             'payment_status' => false,
+            'payment_method' => $paymentMethod,
         ]);
 
         foreach ($items as $item) {
@@ -123,25 +133,35 @@ class CustomerCartController extends Controller
         }
 
         $variantIds = array_map('intval', array_keys($cart));
-        $variants = ProductVariant::with('product')->whereIn('id', $variantIds)->get()->keyBy('id');
+
+        $variants = ProductVariant::with('product')
+            ->whereIn('id', $variantIds)
+            ->get()
+            ->keyBy('id');
 
         $items = [];
+
         foreach ($cart as $variantId => $qty) {
+
             $variant = $variants->get((int) $variantId);
+
             if (!$variant) {
                 continue;
             }
 
             $qty = (int) $qty;
+
             if ($qty <= 0) {
                 continue;
             }
 
+            $realPrice = (float) $variant->price * 10000;
+
             $items[] = [
                 'variant' => $variant,
                 'qty' => $qty,
-                'unit_price' => (float) $variant->price,
-                'line_total' => (float) $variant->price * $qty,
+                'unit_price' => $realPrice,
+                'line_total' => $realPrice * $qty,
             ];
         }
 

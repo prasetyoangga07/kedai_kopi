@@ -13,6 +13,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body x-data="dashboardJs(@js(Route::currentRouteName()))" class="bg-[#F8F3ED] overflow-x-hidden">
@@ -121,34 +126,42 @@
     </div>
 
     @if (session('success'))
-        <script>
-            window.addEventListener('load', () => {
-                window.dispatchEvent(
-                    new CustomEvent('toast', {
-                        detail: {
-                            type: 'success',
-                            message: '{{ session('success') }}'
-                        }
-                    })
-                );
-            });
-        </script>
+    <script>
+        window.addEventListener('load', () => {
+            window.dispatchEvent(
+                new CustomEvent('toast', {
+                    detail: {
+                        type: 'success',
+                        message: '{{ session('
+                        success ') }}'
+                    }
+                })
+            );
+        });
+    </script>
     @endif
 
     @if (session('error'))
-        <script>
-            window.addEventListener('load', () => {
-                window.dispatchEvent(
-                    new CustomEvent('toast', {
-                        detail: {
-                            type: 'error',
-                            message: '{{ session('error') }}'
-                        }
-                    })
-                );
-            });
-        </script>
+    <script>
+        window.addEventListener('load', () => {
+            window.dispatchEvent(
+                new CustomEvent('toast', {
+                    detail: {
+                        type: 'error',
+                        message: '{{ session('
+                        error ') }}'
+                    }
+                })
+            );
+        });
+    </script>
     @endif
+
+    @stack('scripts')
+
+</body>
+
+</html>
 
 </body>
 

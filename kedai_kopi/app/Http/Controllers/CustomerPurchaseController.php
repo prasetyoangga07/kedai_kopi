@@ -19,9 +19,10 @@ class CustomerPurchaseController extends Controller
         $customer = Customer::where('user_id', auth()->id())->first();
 
         $transactions = Transaction::with(
-            'details.variantId.product'
+            'details.variant.product'
         )
         ->where('cust_id', $customer->id)
+        ->orderByDesc('created_at')
         ->paginate(10)
         // mapping data agar lebih rapih di Js
         ->through(function ($tx) {
@@ -32,10 +33,10 @@ class CustomerPurchaseController extends Controller
                 'status' => $tx->status,
                 'items' => $tx->details->map(function ($detail) {
                     return [
-                        'name' => $detail->variantId->product->name,
-                        'variant' => $detail->variantId->variant_name,
+                        'name' => $detail->variant?->product?->name ?? '-',
+                        'variant' => $detail->variant?->variant_name ?? '-',
                         'qty' => $detail->qty,
-                        'price' => $detail->variantId->price,
+                        'price' => $detail->variant?->price ?? 0,
                     ];
                 }),
                 'created_at' => $tx->created_at->format('d M Y, H:i'),

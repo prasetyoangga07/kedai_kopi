@@ -28,7 +28,7 @@
                     <div class="min-w-0">
                         <p class="font-bold text-[#2B2118] truncate">{{ $variant->product->name ?? 'Produk' }} </p>
                         <p class="text-stone-600">Varian: {{ $variant->variant_name }}</p>
-                        <p class="text-stone-600">Harga: Rp {{ number_format($item['unit_price'] * 10000, 0, ',', '.') }}</p>
+                        <p class="text-stone-600">Harga: Rp {{ number_format($item['unit_price'],0,',','.') }}</p>
                     </div>
 
                     <div class="flex items-center gap-3">
@@ -97,20 +97,30 @@
             <div class="mt-4 space-y-3">
                 <div class="flex justify-between">
                     <span class="text-stone-600">Subtotal</span>
-                    <span class="font-semibold text-[#2B2118]">Rp {{ number_format($totals['subtotal'] * 10000, 0, ',', '.') }}</span>
+                    <span class="font-semibold text-[#2B2118]">
+                        Rp {{ number_format($totals['subtotal'],0,',','.') }}
+                    </span>
                 </div>
+
                 <div class="flex justify-between">
                     <span class="text-stone-600">Discount</span>
-                    <span class="font-semibold text-[#2B2118]">Rp {{ number_format($totals['discount'] * 10000, 0, ',', '.') }}</span>
+                    <span class="font-semibold text-[#2B2118]">
+                        Rp {{ number_format($totals['discount'],0,',','.') }}
+                    </span>
                 </div>
+
                 <div class="flex justify-between">
                     <span class="text-stone-600">Tax</span>
-                    <span class="font-semibold text-[#2B2118]">Rp {{ number_format($totals['tax'] * 10000, 0, ',', '.') }}</span>
+                    <span class="font-semibold text-[#2B2118]">
+                        Rp {{ number_format($totals['tax'],0,',','.') }}
+                    </span>
                 </div>
 
                 <div class="border-t border-[#EFE3D5] pt-3 flex justify-between">
                     <span class="font-bold text-[#2B2118]">Grand Total</span>
-                    <span class="font-bold text-[#6F4E37]">Rp {{ number_format($totals['grand_total'] * 10000, 0, ',', '.') }}</span>
+                    <span class="font-bold text-[#6F4E37]">
+                        Rp {{ number_format($totals['grand_total'],0,',','.') }}
+                    </span>
                 </div>
             </div>
 

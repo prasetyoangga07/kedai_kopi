@@ -23,8 +23,18 @@ class CustomerPortalService
             ->orderBy('min_points')
             ->first();
 
-        $nextLess = $nextLevel->min_points - $customer->points;
-        $nextPercent = $customer->points/$nextLevel->min_points * 100;
+        // handle statement ketika member sudah paling tinggi
+        if ($nextLevel) {
+            $nextName = $nextLevel->name;
+            $nextPoint = $nextLevel->min_points;
+            $nextLess = $nextLevel->min_points - $customer->points;
+            $nextPercent = $customer->points/$nextLevel->min_points * 100;
+        } else {
+            $nextName = $member;
+            $nextPoint = 0;
+            $nextLess = 0;
+            $nextPercent = 100;
+        }
         // dd($nextPercent);
         
         return [
@@ -34,8 +44,8 @@ class CustomerPortalService
             'colorPr' => $memberColorPr,
             'colorSc' => $memberColorSc,
             'colorTx' => $memberColorTx,
-            'nextName' => $nextLevel->name,
-            'nextPoint' => $nextLevel->min_points,
+            'nextName' => $nextName,
+            'nextPoint' => $nextPoint,
             'nextLess' => $nextLess,
             'nextPercent' => $nextPercent
         ];

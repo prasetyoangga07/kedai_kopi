@@ -1,5 +1,6 @@
 export default () => ({
     filter: "all",
+    openTransaction: null,
 
     showTransaction(status) {
         if (this.filter === "all") {
@@ -7,5 +8,9 @@ export default () => ({
         }
 
         return status === this.filter;
+    },
+
+    toggleTransaction(id) {
+        this.openTransaction = this.openTransaction === id ? null : id;
     },
 });
