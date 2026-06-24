@@ -153,14 +153,9 @@
                 </thead>
                 <tbody>
                     @forelse ($loyalty as $ly)
-                        {{-- @php $style = $levelStyles[$i]; @endphp --}}
                         <tr class="border-b border-[#EFE3D5] hover:bg-[#FAF3E0] transition-colors">
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
-                                    {{-- <div class="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
-                                    style="background: {{ $style['bg'] }}15; border: 1px solid {{ $style['bg'] }}20">
-                                    {{ $style['icon'] }}
-                                </div> --}}
                                     <div>
                                         <p class="text-sm font-bold text-[#2B2118]">{{ $ly->name }}</p>
                                         <p class="text-xs text-stone-400">{{ $ly->customer_count }} member</p>
@@ -178,11 +173,11 @@
                                 <div class="flex items-center gap-2 w-40">
                                     <div class="flex-1 h-2 rounded-full bg-[#EFE3D5]">
                                         <div class="h-2 rounded-full"
-                                            style="background: {{ $style['badge'] }}; width: {{ min(100, ($ly->max_points / 9999) * 100) }}%">
+                                            style="background: {{ $style['badge'] }}; width: {{ min(100, ($ly->max_points / $loyalty->max('max_points')) * 100) }}%">
                                         </div>
                                     </div>
                                     <span class="text-xs text-stone-400 shrink-0">
-                                        {{ round(($ly->max_points / 9999) * 100) }}%
+                                        {{ round(($ly->max_points / $loyalty->max('max_points')) * 100) }}%
                                     </span>
                                 </div>
                             </td>
@@ -194,7 +189,7 @@
                                         title="Edit">
                                         <x-heroicon-o-pencil class="w-4 h-4" />
                                     </button>
-                                    <button @click="deleteLevel({{ json_encode($lvl) }})"
+                                    <button @click="deleteLevel(@js($lvl))"
                                         class="px-3 py-2 bg-[#FFE8E8] text-red-600 rounded-lg text-xs font-semibold hover:bg-[#FFD0D0] transition cursor-pointer"
                                         title="Hapus">
                                         <x-heroicon-o-trash class="w-4 h-4" />
@@ -455,75 +450,4 @@
         </div>
 
     </div>
-
-    @push('scripts')
-        <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('loyaltyJs', () => ({
-                    search: '',
-                    showModal: false,
-                    showDelete: false,
-                    isEdit: false,
-                    errors: {},
-
-                    level: {
-                        id: null,
-                        name: '',
-                        min_points: '',
-                        max_points: '',
-                    },
-
-                    createLevel() {
-                        this.isEdit = false;
-                        this.errors = {};
-                        this.level = {
-                            id: null,
-                            name: '',
-                            min_points: '',
-                            max_points: ''
-                        };
-                        this.showModal = true;
-                    },
-
-                    editLevel(data) {
-                        this.isEdit = true;
-                        this.errors = {};
-                        this.level = {
-                            ...data
-                        };
-                        this.showModal = true;
-                    },
-
-                    deleteLevel(data) {
-                        this.level = data;
-                        this.showDelete = true;
-                    },
-
-                    async submitLevel() {
-                        const url = this.isEdit ? `/loyalty/${this.level.id}` : `/loyalty`;
-                        const method = this.isEdit ? 'PUT' : 'POST';
-
-                        const res = await fetch(url, {
-                            method,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector(
-                                    'meta[name="csrf-token"]').content,
-                            },
-                            body: JSON.stringify(this.level),
-                        });
-
-                        const data = await res.json();
-
-                        if (!res.ok) {
-                            this.errors = data.errors ?? {};
-                            return;
-                        }
-
-                        window.location.reload();
-                    },
-                }));
-            });
-        </script>
-    @endpush
 @endsection

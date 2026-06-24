@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('cust_id');
+            $table->foreignId('customer_id')->constrained()->onDelete('restrict');
             $table->decimal('subtotal', total: 8, places: 2);
             $table->decimal('discount', total: 8, places: 2);
             $table->decimal('tax', total: 8, places: 2);
             $table->decimal('grand_total', total: 8, places: 2);
             $table->enum('in_or_out', ['in', 'out'])->nullable();
+            $table->integer('points');
+            $table->string('payment_method');
             $table->boolean('payment_status');
             $table->timestamps();
         });

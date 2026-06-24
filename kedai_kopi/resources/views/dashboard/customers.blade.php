@@ -173,7 +173,7 @@
 
                                 <td class="p-5">{{ $item->phone }}</td>
 
-                                <td class="p-5 font-bold text-[#6F4E37]">{{ $item->points }}</td>
+                                <td class="p-5 font-bold text-[#6F4E37]">{{ $item->transaction_sum_points }}</td>
 
                                 <td class="p-5">
                                     <span

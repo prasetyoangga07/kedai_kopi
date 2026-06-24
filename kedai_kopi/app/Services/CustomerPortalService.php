@@ -11,7 +11,9 @@ class CustomerPortalService
     public function getData()
     {
         $customer = Customer::where('user_id', auth()->id())->first();
-        $transaction = Transaction::where('cust_id', $customer->id)->get();
+        $transaction = Transaction::where('customer_id', $customer->id)
+            ->where('payment_status', 1)
+            ->get();
 
         $member = $customer->loyalty?->name;
         $memberColorPr = $this->getClass($member)['colorPr'];
@@ -19,7 +21,7 @@ class CustomerPortalService
         $memberColorTx = $this->getClass($member)['colorTx'];
         
         $nextLevel = LoyaltyLevel::query()
-            ->where('min_points', '>', $customer->points)
+            ->where('min_points', '>', $customer->total_points)
             ->orderBy('min_points')
             ->first();
 
@@ -27,7 +29,7 @@ class CustomerPortalService
         if ($nextLevel) {
             $nextName = $nextLevel->name;
             $nextPoint = $nextLevel->min_points;
-            $nextLess = $nextLevel->min_points - $customer->points;
+            $nextLess = $nextLevel->min_points - $customer->total_points;
             $nextPercent = $customer->points/$nextLevel->min_points * 100;
         } else {
             $nextName = $member;
@@ -38,7 +40,7 @@ class CustomerPortalService
         // dd($nextPercent);
         
         return [
-            'points' => number_format($customer->points, 0, ',', '.'),
+            'points' => number_format($customer->total_points, 0, ',', '.'),
             'totalSpend' => number_format($transaction->sum('grand_total'), 0, ',', '.'),
             'member' => $member,
             'colorPr' => $memberColorPr,

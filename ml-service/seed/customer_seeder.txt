@@ -7,7 +7,6 @@ IGNORE 1 LINES
 (
     user_id,
     phone,
-    points,
     status,
     created_at,
     @updated_at

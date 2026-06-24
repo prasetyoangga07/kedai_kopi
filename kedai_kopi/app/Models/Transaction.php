@@ -9,12 +9,13 @@ class Transaction extends Model
     protected $table = 'transactions';
 
     protected $fillable = [
-        'cust_id',
+        'customer_id',
         'subtotal',
         'discount',
         'tax',
         'grand_total',
         'in_or_out',
+        'points',
         'payment_status',
         'payment_method',
     ];
@@ -26,6 +27,6 @@ class Transaction extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'cust_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 }

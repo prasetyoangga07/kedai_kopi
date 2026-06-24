@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -15,6 +16,7 @@ class CustomerController extends Controller
     {
         $cust = Customer::query()
             ->with('user')
+            ->withSum('transaction', 'points')
             ->whereHas('user', function ($q) {
                 $q->where(
                     'name',
@@ -46,7 +48,6 @@ class CustomerController extends Controller
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,
-                'points' => $request->points,
                 'status' => $request->status
             ]);
 

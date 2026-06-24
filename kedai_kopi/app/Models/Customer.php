@@ -11,7 +11,6 @@ class Customer extends Model
     protected $fillable = [
         'user_id',
         'phone',
-        'points',
         'status',
     ];
 
@@ -20,13 +19,26 @@ class Customer extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function getTotalPointsAttribute()
+    {
+        return $this->transaction()
+            ->where('payment_status', 1)
+            ->sum('points');
+    }
+
+    // menentukan level customer dari tabel loyalty
     public function getLoyaltyAttribute()
     {
         return LoyaltyLevel::query()
-            ->where('min_points', '<=', $this->points)
+            ->where('min_points', '<=', $this->total_points)
             ->where(function ($q) {
                 $q->whereNull('max_points')
-                ->orWhere('max_points', '>=', $this->points);
+                ->orWhere('max_points', '>=', $this->total_points);
             })
             ->first();
     }

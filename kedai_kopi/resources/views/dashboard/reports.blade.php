@@ -35,6 +35,8 @@
                         <p class="text-{{ $deviation < 0 ? 'red' : 'green' }}-600 text-sm mt-3 font-semibold">
                             @if ($deviation > 0)
                                 +
+                            @else
+                                -
                             @endif
                             {{ $growth }}% bulan ini
                         </p>
@@ -103,7 +105,7 @@
                 </span>
 
                 <h2 class="text-5xl font-black mt-6">
-                    Revenue {{ $deviation < 0 ? 'Turun' : 'Naik' }} {{ abs($growth) }}%
+                    Revenue {{ $deviation < 0 ? 'Turun' : 'Naik' }} {{ $growth }}%
                 </h2>
 
                 <p class="mt-4 text-xl text-white/90">
@@ -129,6 +131,8 @@
                         <h3 class="text-2xl font-bold">
                             @if ($deviation > 0)
                                 +
+                            @else
+                                -
                             @endif
                             {{ $growth }}%
                         </h3>
