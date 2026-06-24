@@ -77,60 +77,72 @@
 
         {{-- REPORT GROUP --}}
         @can(['apriori.view', 'report.view'])
-            <div x-show="sidebarOpen" x-transition>
-                <button @click="menu.report = !menu.report"
-                    class="flex items-center w-full px-3 py-2 rounded-xl text-stone-400 hover:text-stone-200 transition-colors duration-200 cursor-pointer">
-                    <span class="flex-1 text-left text-xs font-semibold uppercase tracking-wider">Report</span>
-                    <x-heroicon-o-chevron-right
-                        class="w-4 h-4 transition-transform duration-200"
-                        ::class="{ 'rotate-90': menu.report }" />
-                </button>
+        <div x-show="sidebarOpen" x-transition>
+            <button @click="menu.report = !menu.report"
+                class="flex items-center w-full px-3 py-2 rounded-xl text-stone-400 hover:text-stone-200 transition-colors duration-200 cursor-pointer">
+                <span class="flex-1 text-left text-xs font-semibold uppercase tracking-wider">Report</span>
+                <x-heroicon-o-chevron-right
+                    class="w-4 h-4 transition-transform duration-200"
+                    ::class="{ 'rotate-90': menu.report }" />
+            </button>
 
-                <div x-show="menu.report" x-transition class="pl-3 space-y-1 mt-1">
-                    <a href="{{ route('apriori.index') }}"
-                        class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+            <div x-show="menu.report" x-transition class="pl-3 space-y-1 mt-1">
+                <a href="{{ route('apriori.index') }}"
+                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
                         {{ request()->is('apriori') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
-                        <x-heroicon-o-cube-transparent class="w-5 h-5 shrink-0" />
-                        <span class="text-sm">Apriori</span>
-                    </a>
+                    <x-heroicon-o-cube-transparent class="w-5 h-5 shrink-0" />
+                    <span class="text-sm">Apriori</span>
+                </a>
 
-                    <a href="{{ route('reports.index') }}"
-                        class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+                <a href="{{ route('reports.index') }}"
+                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
                         {{ request()->is('reports') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
-                        <x-heroicon-o-clipboard-document-list class="w-5 h-5 shrink-0" />
-                        <span class="text-sm">Laporan</span>
-                    </a>
-                </div>
+                    <x-heroicon-o-clipboard-document-list class="w-5 h-5 shrink-0" />
+                    <span class="text-sm">Laporan</span>
+                </a>
+
+                <a href="{{ route('transactions.index') }}"
+                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+                        {{ request()->is('transactions') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
+
+                    <x-heroicon-o-credit-card class="w-5 h-5 shrink-0" />
+
+                    <span class="text-sm">
+                        Transaksi
+                    </span>
+
+                </a>
             </div>
+        </div>
         @endcan
 
         {{-- CREDENTIAL GROUP --}}
         @role('super admin')
-            <div x-show="sidebarOpen" x-transition>
-                <button @click="menu.credential = !menu.credential"
-                    class="flex items-center w-full px-3 py-2 rounded-xl text-stone-400 hover:text-stone-200 transition-colors duration-200 cursor-pointer">
-                    <span class="flex-1 text-left text-xs font-semibold uppercase tracking-wider">Credential</span>
-                    <x-heroicon-o-chevron-right
-                        class="w-4 h-4 transition-transform duration-200"
-                        ::class="{ 'rotate-90': menu.credential }" />
-                </button>
+        <div x-show="sidebarOpen" x-transition>
+            <button @click="menu.credential = !menu.credential"
+                class="flex items-center w-full px-3 py-2 rounded-xl text-stone-400 hover:text-stone-200 transition-colors duration-200 cursor-pointer">
+                <span class="flex-1 text-left text-xs font-semibold uppercase tracking-wider">Credential</span>
+                <x-heroicon-o-chevron-right
+                    class="w-4 h-4 transition-transform duration-200"
+                    ::class="{ 'rotate-90': menu.credential }" />
+            </button>
 
-                <div x-show="menu.credential" x-transition class="pl-3 space-y-1 mt-1">
-                    <a href="{{ route('users.index') }}"
-                        class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+            <div x-show="menu.credential" x-transition class="pl-3 space-y-1 mt-1">
+                <a href="{{ route('users.index') }}"
+                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
                         {{ request()->is('users') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
-                        <x-heroicon-o-user-circle class="w-5 h-5 shrink-0" />
-                        <span class="text-sm">User</span>
-                    </a>
+                    <x-heroicon-o-user-circle class="w-5 h-5 shrink-0" />
+                    <span class="text-sm">User</span>
+                </a>
 
-                    <a href="{{ route('roles.index') }}"
-                        class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
+                <a href="{{ route('roles.index') }}"
+                    class="flex items-center h-11 px-4 gap-3 rounded-2xl transition-all duration-200
                         {{ request()->is('roles') ? 'bg-[#A67B5B] text-white shadow-lg' : 'hover:bg-[#DDB892]/20' }}">
-                        <x-heroicon-o-shield-check class="w-5 h-5 shrink-0" />
-                        <span class="text-sm">Roles</span>
-                    </a>
-                </div>
+                    <x-heroicon-o-shield-check class="w-5 h-5 shrink-0" />
+                    <span class="text-sm">Roles</span>
+                </a>
             </div>
+        </div>
         @endrole
 
     </nav>

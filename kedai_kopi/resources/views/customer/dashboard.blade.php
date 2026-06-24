@@ -42,19 +42,21 @@
             {{-- baris bawah: progres & info kartu --}}
             <div>
                 {{-- progress ke level berikutnya --}}
-                <div class="relative mt-8">
-                    <div class="flex justify-between text-xs mb-2">
-                        <span class="text-stone-400 font-semibold">{{ $data['member'] }}</span>
-                        <span style="color: {{ $data['colorSc'] }}" class="font-bold">{{ $data['nextName'] }} — kurang {{ $data['nextLess'] }} poin</span>
+                @if ($data['nextPoint'] != 0)
+                    <div class="relative mt-8">
+                        <div class="flex justify-between text-xs mb-2">
+                            <span class="text-stone-400 font-semibold">{{ $data['member'] }}</span>
+                            <span style="color: {{ $data['colorSc'] }}" class="font-bold">{{ $data['nextName'] }} — kurang {{ $data['nextLess'] }} poin</span>
+                        </div>
+                        <div class="w-full h-2.5 rounded-full bg-white/10">
+                            <div class="h-2.5 rounded-full" style="width: {{ $data['nextPercent'] }}%; background-color: {{ $data['colorSc'] }}"></div>
+                        </div>
+                        <div class="flex justify-between text-xs mt-1.5" style="color: {{ $data['colorSc'] }}">
+                            <span>{{ $data['points'] }} pts</span>
+                            <span>{{ $data['nextPoint'] }} pts</span>
+                        </div>
                     </div>
-                    <div class="w-full h-2.5 rounded-full bg-white/10">
-                        <div class="h-2.5 rounded-full" style="width: {{ $data['nextPercent'] }}%; background-color: {{ $data['colorSc'] }}"></div>
-                    </div>
-                    <div class="flex justify-between text-xs mt-1.5" style="color: {{ $data['colorSc'] }}">
-                        <span>{{ $data['points'] }} pts</span>
-                        <span>{{ $data['nextPoint'] }} pts</span>
-                    </div>
-                </div>
+                @endif
     
                 {{-- nama & info kartu --}}
                 <div class="relative mt-8 flex items-end justify-between">
@@ -122,9 +124,15 @@
                     <x-heroicon-o-trophy class="w-6 h-6 text-[#DDB892]" />
                 </div>
                 <div>
-                    <p class="text-stone-400 text-xs">Level berikutnya</p>
+                    @if ($data['nextPoint'] != 0)
+                        <p class="text-stone-400 text-xs">Level berikutnya</p>
+                    @endif
                     <p class="font-bold text-[#DDB892]">{{ $data['nextName'] }} Member</p>
-                    <p class="text-xs text-stone-300 mt-0.5">Tambah <span class="font-semibold text-white">{{ $data['nextLess'] }} poin</span> lagi untuk naik level</p>
+                    @if ($data['nextPoint'])
+                        <p class="text-xs text-stone-300 mt-0.5">Tambah <span class="font-semibold text-white">{{ $data['nextLess'] }} poin</span> lagi untuk naik level</p>
+                    @else
+                        <p class="text-xs text-stone-300 mt-0.5">Terimakasih telah menjadi pelanggan setia kami</p>
+                    @endif
                 </div>
             </div>
         </div>

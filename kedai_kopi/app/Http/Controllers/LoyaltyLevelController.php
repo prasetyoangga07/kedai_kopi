@@ -44,7 +44,6 @@ class LoyaltyLevelController extends Controller
                 'success' => true,
                 'message' => 'Loyalty baru berhasil dibuat'
             ]);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
@@ -81,13 +80,15 @@ class LoyaltyLevelController extends Controller
                 'name' => $request->name,
                 'min_points' => $request->min_points,
                 'max_points' => $request->max_points,
+                'primary_color' => $request->primary_color,
+                'secondary_color' => $request->secondary_color,
+                'text_color' => $request->text_color,
             ]);
 
             return response()->json([
                 'success' => true,
                 'message' => 'Loyalty berhasil diperbarui'
             ]);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,

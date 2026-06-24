@@ -101,6 +101,18 @@ Route::middleware(['auth', 'permission:admin.panel'])->group(function () {
 
     });
 
+    Route::prefix('/transactions')
+        ->name('transactions.')
+        ->controller(\App\Http\Controllers\TransactionController::class)
+        ->group(function () {
+
+            Route::get('/', 'index')
+                ->name('index');
+
+            Route::post('/{transaction}/approve', 'approve')
+                ->name('approve');
+        });
+
 });
 
 // CUSTOMER PORTAL
